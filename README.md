@@ -1,4 +1,4 @@
-[醫療報告圖表平台.html](https://github.com/user-attachments/files/26481490/default.html)
+[Mum.html](https://github.com/user-attachments/files/26481538/Mum.html)
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
@@ -11,6 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tesseract.js for offline OCR -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     
     <style>
         /* iOS Safe Area & Scroll hiding */
@@ -36,6 +38,22 @@
             right: 0;
             top: 0;
             width: auto;
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            background-color: #e2e8f0;
+            border-radius: 9999px;
+            height: 0.5rem;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: #3b82f6;
+            width: 0%;
+            transition: width 0.3s ease;
         }
     </style>
 </head>
@@ -70,17 +88,21 @@
                     <input type="file" id="file-input" multiple accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onchange="handleFileSelect(event)">
                     <i class="fa-solid fa-cloud-arrow-up text-4xl text-blue-400 mb-3"></i>
                     <p class="text-blue-700 font-medium">點擊上載截圖或拍照</p>
-                    <p class="text-sm text-blue-500 mt-1">支援多張截圖同時上載</p>
+                    <p class="text-sm text-blue-500 mt-1">本地智能掃描，無需上傳伺服器</p>
                 </div>
                 
                 <div id="manual-btn-area" class="mt-4 text-center">
-                    <button onclick="startVerification({}, null)" class="text-blue-600 text-sm font-medium underline">或手動輸入數據</button>
+                    <button onclick="startVerification()" class="text-blue-600 text-sm font-medium underline">直接手動輸入數據</button>
                 </div>
 
                 <!-- Loading State -->
-                <div id="loading-area" class="hidden py-10 text-center">
-                    <i class="fa-solid fa-spinner fa-spin text-3xl text-blue-500 mb-3"></i>
-                    <p class="text-slate-600 font-medium">AI 正在分析圖片數據，請稍候...</p>
+                <div id="loading-area" class="hidden py-8 text-center">
+                    <i class="fa-solid fa-microchip text-3xl text-blue-500 mb-3 animate-pulse"></i>
+                    <p class="text-slate-700 font-bold mb-1">正在進行本地文字識別...</p>
+                    <p id="ocr-status" class="text-sm text-slate-500">準備中</p>
+                    <div class="progress-bar-container max-w-xs mx-auto">
+                        <div id="ocr-progress" class="progress-bar"></div>
+                    </div>
                 </div>
             </div>
 
@@ -88,15 +110,15 @@
             <div id="verification-area" class="hidden bg-white rounded-2xl shadow-sm p-5 mb-6 animation-fade-in">
                 <div class="flex justify-between items-center mb-2 border-b pb-2">
                     <h2 class="text-lg font-semibold text-slate-700">確認報告數據</h2>
-                    <button onclick="resetUploadArea()" class="text-sm text-slate-400 hover:text-slate-600"><i class="fa-solid fa-times"></i> 取消</button>
+                    <button onclick="resetUploadArea()" class="text-sm text-slate-500 hover:text-red-500"><i class="fa-solid fa-times"></i> 重新上載</button>
                 </div>
-                <p class="text-sm text-slate-500 mb-4">請核對提取的數據。系統不會儲存圖片，只會記錄以下文字資料。異常數值會以紅色標示。</p>
+                <p class="text-sm text-slate-500 mb-4">請仔細核對以下從圖片擷取的數據。如有錯誤請直接修改。異常數值會以紅色標示。</p>
                 
                 <div class="mb-5">
                     <label class="block text-sm font-medium text-slate-700 mb-1">報告日期 <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <input type="date" id="report-date" required class="w-full border border-slate-300 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-700">
-                        <p id="date-warning" class="text-xs text-red-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation"></i> 圖片中找不到日期，請手動輸入</p>
+                        <p id="date-warning" class="text-xs text-red-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation"></i> 找不到日期，請手動輸入</p>
                     </div>
                 </div>
 
@@ -133,7 +155,7 @@
             <div id="empty-state" class="hidden bg-white rounded-2xl shadow-sm p-10 text-center">
                 <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-3"></i>
                 <p class="text-slate-500">尚未有任何記錄</p>
-                <button onclick="switchTab('upload')" class="mt-4 text-blue-600 font-medium hover:underline">立即上載報告</button>
+                <button onclick="switchTab('upload')" class="mt-4 text-blue-600 font-medium hover:underline">立即新增記錄</button>
             </div>
 
             <!-- Charts Container -->
@@ -147,8 +169,8 @@
     <!-- Bottom Navigation -->
     <nav class="fixed bottom-0 w-full bg-white border-t border-slate-200 pb-safe pt-2 px-6 flex justify-around items-center z-50">
         <button onclick="switchTab('upload')" id="nav-upload" class="flex flex-col items-center p-2 text-blue-600">
-            <i class="fa-solid fa-camera text-xl mb-1"></i>
-            <span class="text-xs font-medium">上載報告</span>
+            <i class="fa-solid fa-file-medical text-xl mb-1"></i>
+            <span class="text-xs font-medium">新增記錄</span>
         </button>
         <button onclick="switchTab('dashboard')" id="nav-dashboard" class="flex flex-col items-center p-2 text-slate-400">
             <i class="fa-solid fa-chart-line text-xl mb-1"></i>
@@ -168,8 +190,6 @@
 
     <script>
         // --- System Data Definition ---
-        const apiKey = ""; // Provided by environment at runtime
-        
         const referenceRanges = {
             "CA125": { max: 35 },
             "Hemoglobin": { min: 11.9, max: 15.1 },
@@ -213,22 +233,66 @@
             cat3: { name: "AP, Ca+PO4, LFT, RFT", metrics: ["Sodium", "Potassium", "Urea", "Creatinine", "Protein_Total", "Albumin", "Globulin", "Bilirubin_Total", "Alkaline_Phosphatase", "Alanine_Aminotransferase", "Calcium", "Calcium_Adjusted", "Phosphate"] }
         };
 
+        // Regex patterns for matching data from raw OCR text
+        const extractionRules = {
+            "CA125": /(?:CA[-\s]?125|CA125).*?(\d+(?:\.\d+)?)/i,
+            "Hemoglobin": /(?:Hemoglobin|Hgb|Hb).*?(\d+(?:\.\d+)?)/i,
+            "WBC": /(?:WBC|White Blood Cell).*?(\d+(?:\.\d+)?)/i,
+            "Platelet": /(?:Platelet|PLT).*?(\d+(?:\.\d+)?)/i,
+            "MCV": /(?:MCV).*?(\d+(?:\.\d+)?)/i,
+            "MCH": /(?:MCH)[^C]*?(\d+(?:\.\d+)?)/i, // Exclude MCHC
+            "MCHC": /(?:MCHC).*?(\d+(?:\.\d+)?)/i,
+            "RBC": /(?:RBC|Red Blood Cell).*?(\d+(?:\.\d+)?)/i,
+            "HCT": /(?:HCT|Hematocrit).*?(\d+(?:\.\d+)?)/i,
+            "RDW": /(?:RDW).*?(\d+(?:\.\d+)?)/i,
+            "MPV": /(?:MPV).*?(\d+(?:\.\d+)?)/i,
+            "Neutrophil_absolute": /Neutrophil.*?absolute.*?(\d+(?:\.\d+)?)|Neutrophil(?:s)?[^\%]*?(\d+(?:\.\d+)?)(?![^\n]*\%)/i,
+            "Neutrophil_pct": /Neutrophil.*?%.*?(\d+(?:\.\d+)?)/i,
+            "Lymphocyte_absolute": /Lymphocyte.*?absolute.*?(\d+(?:\.\d+)?)|Lymphocyte(?:s)?[^\%]*?(\d+(?:\.\d+)?)(?![^\n]*\%)/i,
+            "Lymphocyte_pct": /Lymphocyte.*?%.*?(\d+(?:\.\d+)?)/i,
+            "Monocyte_absolute": /Monocyte.*?absolute.*?(\d+(?:\.\d+)?)|Monocyte(?:s)?[^\%]*?(\d+(?:\.\d+)?)(?![^\n]*\%)/i,
+            "Monocyte_pct": /Monocyte.*?%.*?(\d+(?:\.\d+)?)/i,
+            "Eosinophil_absolute": /Eosinophil.*?absolute.*?(\d+(?:\.\d+)?)|Eosinophil(?:s)?[^\%]*?(\d+(?:\.\d+)?)(?![^\n]*\%)/i,
+            "Eosinophil_pct": /Eosinophil.*?%.*?(\d+(?:\.\d+)?)/i,
+            "Basophil_absolute": /Basophil.*?absolute.*?(\d+(?:\.\d+)?)|Basophil(?:s)?[^\%]*?(\d+(?:\.\d+)?)(?![^\n]*\%)/i,
+            "Basophil_pct": /Basophil.*?%.*?(\d+(?:\.\d+)?)/i,
+            
+            "Sodium": /(?:Sodium|Na\+).*?(\d+(?:\.\d+)?)/i,
+            "Potassium": /(?:Potassium|K\+).*?(\d+(?:\.\d+)?)/i,
+            "Urea": /(?:Urea|BUN).*?(\d+(?:\.\d+)?)/i,
+            "Creatinine": /(?:Creatinine|Cr).*?(\d+(?:\.\d+)?)/i,
+            "Protein_Total": /Protein.*?Total.*?(\d+(?:\.\d+)?)/i,
+            "Albumin": /(?:Albumin|ALB).*?(\d+(?:\.\d+)?)(?!.*Adjusted)/i,
+            "Globulin": /(?:Globulin|GLB).*?(\d+(?:\.\d+)?)/i,
+            "Bilirubin_Total": /Bilirubin.*?Total.*?(\d+(?:\.\d+)?)/i,
+            "Alkaline_Phosphatase": /(?:Alkaline Phosphatase|ALP).*?(\d+(?:\.\d+)?)/i,
+            "Alanine_Aminotransferase": /(?:Alanine Aminotransferase|ALT|SGPT).*?(\d+(?:\.\d+)?)/i,
+            "Calcium": /Calcium(?!.*Adjusted).*?(\d+(?:\.\d+)?)/i,
+            "Calcium_Adjusted": /Calcium.*?Adjusted.*?(\d+(?:\.\d+)?)/i,
+            "Phosphate": /(?:Phosphate|PO4).*?(\d+(?:\.\d+)?)/i,
+            
+            "Date": /(\d{4}[-/]\d{1,2}[-/]\d{1,2}|\d{1,2}[-/]\d{1,2}[-/]\d{4})/
+        };
+
         const chartColors = [
             '#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', 
             '#06b6d4', '#84cc16', '#6366f1', '#f43f5e', '#14b8a6', '#d946ef'
         ];
 
+        // --- App State ---
         let currentTab = 'upload';
         let currentUploadCat = 'cat1';
         let currentDashCat = 'cat1';
         let db = JSON.parse(localStorage.getItem('healthData')) || { cat1: [], cat2: [], cat3: [] };
         let activeChartInstances = [];
 
+        // --- Initialization ---
         window.onload = () => {
             selectCategory('cat1');
             switchDashCategory('cat1');
         };
 
+        // --- UI Navigation ---
         function switchTab(tab) {
             currentTab = tab;
             document.getElementById('upload-view').classList.toggle('hidden', tab !== 'upload');
@@ -259,10 +323,9 @@
 
             const desc = document.getElementById('category-desc');
             if (cat === 'cat1') desc.innerHTML = "只有一項指標 CA125，你可以上載圖片或直接手動輸入。";
-            else if (cat === 'cat2') desc.innerHTML = "包含多項血液細胞指數，強烈建議使用截圖上載以防出錯。";
-            else desc.innerHTML = "包含多項生化指標 (AP, Ca, LFT, RFT等)，強烈建議使用截圖上載。";
+            else if (cat === 'cat2') desc.innerHTML = "包含多項血液細胞指數，建議使用截圖功能自動讀取。";
+            else desc.innerHTML = "包含多項生化指標 (AP, Ca, LFT, RFT等)，建議使用截圖功能自動讀取。";
 
-            document.getElementById('manual-btn-area').style.display = 'block';
             resetUploadArea();
         }
 
@@ -285,6 +348,7 @@
             document.getElementById('upload-area').classList.remove('hidden');
             document.getElementById('verification-area').classList.add('hidden');
             document.getElementById('manual-btn-area').style.display = 'block';
+            document.getElementById('ocr-progress').style.width = '0%';
         }
 
         function showMessage(title, desc, isError = false) {
@@ -294,6 +358,7 @@
             document.getElementById('msg-modal').classList.replace('hidden', 'flex');
         }
 
+        // --- File Handling & Tesseract OCR ---
         async function handleFileSelect(event) {
             const files = event.target.files;
             if (!files || files.length === 0) return;
@@ -303,104 +368,118 @@
             document.getElementById('loading-area').classList.remove('hidden');
 
             try {
-                const base64Files = await Promise.all(Array.from(files).map(file => toBase64(file)));
-                await processImagesWithGemini(base64Files);
+                let fullText = "";
+                let extractedDate = null;
+
+                for (let i = 0; i < files.length; i++) {
+                    const text = await processImageWithTesseract(files[i], i + 1, files.length);
+                    fullText += text + "\n";
+                }
+                
+                // Parse extracted text
+                const extractedMetrics = parseOCRText(fullText);
+                
+                // Try to find date
+                const dateMatch = fullText.match(extractionRules["Date"]);
+                if (dateMatch) {
+                    // Try to format to YYYY-MM-DD
+                    let d = dateMatch[1].replace(/\//g, '-');
+                    // Simple check if it's DD-MM-YYYY, swap to YYYY-MM-DD
+                    if (d.match(/^\d{1,2}-\d{1,2}-\d{4}$/)) {
+                        const parts = d.split('-');
+                        d = `${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`;
+                    }
+                    extractedDate = d;
+                }
+
+                document.getElementById('loading-area').classList.add('hidden');
+                startVerification(extractedMetrics, extractedDate);
+
             } catch (error) {
-                console.error(error);
-                showMessage("讀取錯誤", "無法處理圖片，請重試或手動輸入。", true);
-                resetUploadArea();
-            }
-        }
-
-        const toBase64 = file => new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result.split(',')[1]);
-            reader.onerror = error => reject(error);
-        });
-
-        async function processImagesWithGemini(base64Images) {
-            const metricsList = categorySetup[currentUploadCat].metrics.join(", ");
-            const prompt = `
-            You are a medical data extraction assistant. I will provide images of a blood test report.
-            Please extract the test date and the following specific metrics: ${metricsList}.
-            
-            Return ONLY a JSON object in this exact format, with no markdown formatting or extra text:
-            {
-                "date": "YYYY-MM-DD",
-                "metrics": {
-                    "MetricName": numeric_value
-                }
-            }
-            If the date cannot be found, set "date" to null.
-            If a metric cannot be found, omit it from the metrics object.
-            Map variations of names (like "%" to "_pct", "Abs" to "_absolute", "ALT" to "Alanine_Aminotransferase") to exactly match the list provided.
-            `;
-
-            const imageParts = base64Images.map(base64 => ({
-                inlineData: { mimeType: "image/jpeg", data: base64 }
-            }));
-
-            const payload = {
-                contents: [{
-                    role: "user",
-                    parts: [{ text: prompt }, ...imageParts]
-                }],
-                systemInstruction: { parts: [{ text: "You only output strictly valid JSON." }] },
-                generationConfig: { responseMimeType: "application/json" }
-            };
-
-            let retryCount = 0;
-            const maxRetries = 5;
-            let success = false;
-            let resultData = null;
-
-            while (retryCount < maxRetries && !success) {
-                try {
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) throw new Error("API Error");
-
-                    const data = await response.json();
-                    const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                    resultData = JSON.parse(textResult);
-                    success = true;
-
-                } catch (error) {
-                    retryCount++;
-                    const delay = Math.pow(2, retryCount) * 1000;
-                    await new Promise(r => setTimeout(r, delay));
-                }
-            }
-
-            document.getElementById('loading-area').classList.add('hidden');
-
-            if (success && resultData) {
-                startVerification(resultData.metrics || {}, resultData.date);
-            } else {
-                showMessage("分析失敗", "無法從圖片提取資訊，請重試或改用手動輸入。", true);
+                console.error("OCR Error:", error);
+                document.getElementById('loading-area').classList.add('hidden');
+                showMessage("讀取錯誤", "無法處理圖片，請直接手動輸入數據。", true);
                 startVerification({}, null);
             }
         }
 
+        async function processImageWithTesseract(file, currentIndex, totalFiles) {
+            const statusEl = document.getElementById('ocr-status');
+            const progressEl = document.getElementById('ocr-progress');
+            
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = async () => {
+                    try {
+                        statusEl.innerText = `正在讀取圖片 ${currentIndex}/${totalFiles} ...`;
+                        
+                        // Initialize Tesseract worker
+                        const worker = await Tesseract.createWorker({
+                            logger: m => {
+                                if (m.status === 'recognizing text') {
+                                    const percent = Math.round(m.progress * 100);
+                                    progressEl.style.width = `${percent}%`;
+                                    statusEl.innerText = `識別中: ${percent}% (圖片 ${currentIndex}/${totalFiles})`;
+                                }
+                            }
+                        });
+                        
+                        await worker.loadLanguage('eng');
+                        await worker.initialize('eng');
+                        
+                        // Optimize for report data
+                        await worker.setParameters({
+                            tessedit_char_whitelist: '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,%/-+:<> ',
+                        });
+
+                        const { data: { text } } = await worker.recognize(reader.result);
+                        await worker.terminate();
+                        resolve(text);
+                    } catch (err) {
+                        reject(err);
+                    }
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function parseOCRText(text) {
+            const results = {};
+            const metricsToFind = categorySetup[currentUploadCat].metrics;
+            
+            // Clean up text slightly for better matching
+            const cleanText = text.replace(/\n/g, ' ').replace(/\s+/g, ' ');
+
+            metricsToFind.forEach(metric => {
+                const rule = extractionRules[metric];
+                if (rule) {
+                    const match = cleanText.match(rule);
+                    if (match && match[1]) {
+                        results[metric] = parseFloat(match[1]);
+                    }
+                }
+            });
+            return results;
+        }
+
+        // --- Data Verification & Validation ---
         function startVerification(extractedMetrics = {}, extractedDate = null) {
             document.getElementById('upload-area').classList.add('hidden');
             document.getElementById('manual-btn-area').style.display = 'none';
-            document.getElementById('loading-area').classList.add('hidden');
             document.getElementById('verification-area').classList.remove('hidden');
             
             const dateInput = document.getElementById('report-date');
             const dateWarning = document.getElementById('date-warning');
             
+            // Default to today if manual input
+            const today = new Date().toISOString().split('T')[0];
+            
             if (extractedDate && extractedDate.match(/^\d{4}-\d{2}-\d{2}$/)) {
                 dateInput.value = extractedDate;
                 dateWarning.classList.add('hidden');
             } else {
-                dateInput.value = "";
+                dateInput.value = today; // Pre-fill today
                 dateWarning.classList.remove('hidden');
             }
 
@@ -427,6 +506,7 @@
                 `;
                 metricsContainer.appendChild(div);
                 
+                // trigger color check initially
                 const inputEle = document.getElementById(`input-${metric}`);
                 if(val !== '') checkValueColor(metric, inputEle);
             });
@@ -487,7 +567,9 @@
                 return;
             }
 
+            // Save to DB
             db[currentUploadCat].push(newRecord);
+            // Sort by date ascending
             db[currentUploadCat].sort((a, b) => new Date(a.date) - new Date(b.date));
             localStorage.setItem('healthData', JSON.stringify(db));
 
@@ -496,7 +578,9 @@
             switchTab('dashboard');
         }
 
+        // --- Dashboard & Charts ---
         function renderCharts() {
+            // Destroy existing charts to free memory
             activeChartInstances.forEach(chart => chart.destroy());
             activeChartInstances = [];
 
@@ -506,6 +590,7 @@
             const timeFilter = document.getElementById('time-filter').value;
             let categoryData = db[currentDashCat];
 
+            // Apply time filter
             if (timeFilter !== 'all') {
                 const cutoff = new Date();
                 if (timeFilter === '1y') cutoff.setFullYear(cutoff.getFullYear() - 1);
@@ -523,9 +608,11 @@
                 container.classList.remove('hidden');
             }
 
+            // Group data by metric to draw one chart per metric
             const metrics = categorySetup[currentDashCat].metrics;
             
             metrics.forEach((metric, index) => {
+                // Check if any record has this metric
                 const hasDataForMetric = categoryData.some(r => r.metrics[metric] !== undefined);
                 if (!hasDataForMetric) return;
 
@@ -540,8 +627,9 @@
                         const val = r.metrics[metric];
                         values.push(val);
                         
+                        // Red point for abnormal
                         if (isAbnormal(metric, val)) {
-                            pointColors.push('#ef4444');
+                            pointColors.push('#ef4444'); // Tailwind red-500
                             pointRadii.push(6);
                         } else {
                             pointColors.push(chartColors[index % chartColors.length]);
@@ -550,10 +638,12 @@
                     }
                 });
 
+                // Create UI wrapper for chart
                 const chartColor = chartColors[index % chartColors.length];
                 const card = document.createElement('div');
                 card.className = "bg-white p-4 rounded-2xl shadow-sm border border-slate-100";
                 
+                // Get latest value formatting
                 const latestVal = values[values.length - 1];
                 const isLatestAbnormal = isAbnormal(metric, latestVal);
                 const latestColorClass = isLatestAbnormal ? 'text-red-500 font-bold' : 'text-slate-700 font-semibold';
@@ -576,6 +666,7 @@
                 `;
                 container.appendChild(card);
 
+                // Render Chart.js
                 const ctx = document.getElementById(`chart-${metric}`).getContext('2d');
                 const chart = new Chart(ctx, {
                     type: 'line',
@@ -585,7 +676,7 @@
                             label: metric,
                             data: values,
                             borderColor: chartColor,
-                            backgroundColor: chartColor + '33',
+                            backgroundColor: chartColor + '33', // 20% opacity
                             borderWidth: 2,
                             tension: 0.3,
                             pointBackgroundColor: pointColors,
@@ -642,5 +733,6 @@
     </script>
 </body>
 </html>
+
 
 
