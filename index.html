@@ -6,10 +6,10 @@
     <title>Y2K Neon Pro - 뭐 할 거예요?</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
+    <!-- Google Fonts 加入 Titan One (圓潤泡泡復古字體) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+TC:wght@500;700;900&family=Righteous&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+TC:wght@500;700;900&family=Righteous&family=Titan+One&family=VT323&display=swap" rel="stylesheet">
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
@@ -112,15 +112,44 @@
         }
         @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
 
-        .btn-black-neon {
-            background: #94A3B8; color: #FFFFFF;
-            border: 2px solid var(--neon-navy); border-radius: 8px; font-weight: 900; padding: 12px 16px;
-            cursor: pointer; transition: all 0.2s; text-transform: uppercase;
-            box-shadow: 0 0 12px var(--neon-navy);
+        /* 8-bit Pixel 變更為 BLACKPINK 復古泡泡按鈕 (Create Task) */
+        .btn-pixel {
+            background-color: #FF69B4; /* BLACKPINK 標誌性亮粉紅色 (Hot Pink) */
+            color: #000000; /* 純黑色字體 */
+            border: 4px solid #000000; /* 粗黑邊框 */
+            border-radius: 20px; /* 配合泡泡字體的圓潤邊角 */
+            font-family: 'Titan One', cursive; /* 圓潤復古泡泡字體 */
+            font-weight: 400; padding: 14px 16px; font-size: 1.3rem;
+            cursor: pointer; transition: all 0.1s; text-transform: uppercase;
+            position: relative;
+            box-shadow: 
+                inset -4px -4px 0px rgba(0, 0, 0, 0.15), /* 底部立體暗角 */
+                inset 4px 4px 0px rgba(255, 255, 255, 0.4), /* 頂部立體高光 */
+                4px 4px 0px #000000; /* 外層純黑陰影 */
+            display: block; text-align: center;
             letter-spacing: 2px;
         }
-        .btn-black-neon:active { transform: scale(0.96); box-shadow: 0 0 25px var(--neon-navy); }
+        /* 左上角的可愛圓潤反光點 */
+        .btn-pixel::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 12px;
+            width: 14px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            transform: rotate(-15deg);
+        }
+        .btn-pixel:active { 
+            transform: translate(4px, 4px); 
+            box-shadow: 
+                inset -4px -4px 0px rgba(0, 0, 0, 0.15), 
+                inset 4px 4px 0px rgba(255, 255, 255, 0.4), 
+                0px 0px 0px #000000; 
+        }
 
+        /* 3. 控制面板藥丸按鈕 (Priority, Category, Time) */
         .control-pill {
             background: #FFFFFF; border: 1px solid #CCC; color: #666;
             padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-family: 'Noto Sans TC', sans-serif;
@@ -174,16 +203,16 @@
         .timeline-inner { display: flex; align-items: center; position: relative; padding: 20px 40px; height: 420px; width: max-content; }
         .timeline-center-line {
             position: absolute; left: 0; right: 0; top: 50%; height: 4px; border-radius: 4px; z-index: 1;
-            background: linear-gradient(90deg, var(--neon-purple), var(--holo-blue), var(--neon-pink)); box-shadow: 0 0 10px var(--neon-purple); transform: translateY(-50%);
+            background: var(--neon-navy); box-shadow: 0 0 10px var(--neon-navy); transform: translateY(-50%);
         }
         .time-node-container { position: relative; width: 180px; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; flex-shrink: 0; z-index: 2; }
         .node-circle {
-            width: 30px; height: 30px; background: #94A3B8; border: 3px solid var(--holo-blue); border-radius: 50%; color: white;
-            display: flex; justify-content: center; align-items: center; font-family: 'Righteous', cursive; font-size: 10px; z-index: 10; box-shadow: 0 0 10px var(--holo-blue);
+            width: 30px; height: 30px; background: #94A3B8; border: 3px solid var(--neon-navy); border-radius: 50%; color: white;
+            display: flex; justify-content: center; align-items: center; font-family: 'Righteous', cursive; font-size: 10px; z-index: 10; box-shadow: 0 0 10px var(--neon-navy);
         }
-        .connection-line { position: absolute; width: 2px; background-color: var(--neon-purple); left: 50%; transform: translateX(-50%); z-index: 5; }
+        .connection-line { position: absolute; width: 2px; background-color: var(--neon-navy); box-shadow: 0 0 8px var(--neon-navy); left: 50%; transform: translateX(-50%); z-index: 5; }
         .timeline-card {
-            position: absolute; width: 160px; background: #94A3B8; border: 1px solid var(--holo-blue); border-radius: 12px; padding: 10px; box-shadow: 0 4px 15px rgba(133,227,255,0.4); z-index: 10;
+            position: absolute; width: 160px; background: #94A3B8; border: 1px solid var(--neon-navy); border-radius: 12px; padding: 10px; box-shadow: 0 4px 15px rgba(29, 78, 216, 0.4); z-index: 10;
         }
     </style>
 </head>
@@ -251,6 +280,23 @@
                 <button onclick="saveTimezoneSettings()" class="btn-black-neon w-full text-lg font-cyber mt-2">
                     APPLY SETTING
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= 刪除確認視窗 (Delete Modal) ================= -->
+    <div id="delete-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex justify-center items-center px-4 backdrop-blur-sm">
+        <div class="y2k-window w-full max-w-xs border-2 border-red-500 shadow-[0_0_20px_red]">
+            <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-red-500 text-white">
+                <span><i class="ph-fill ph-warning-circle mr-1"></i> WARNING.EXE</span>
+            </div>
+            <div class="p-5 flex flex-col gap-4 bg-white text-center">
+                <i class="ph-fill ph-trash text-6xl text-red-500 mx-auto drop-shadow-md"></i>
+                <p class="font-kr text-black text-lg">確定要永久刪除此事項嗎？</p>
+                <div class="flex gap-3 mt-2">
+                    <button onclick="closeDeleteModal()" class="flex-1 control-pill justify-center !text-black border-2 !border-gray-300 hover:bg-gray-100">取消</button>
+                    <button onclick="confirmDelete()" class="flex-1 bg-red-500 text-white font-bold py-2 rounded-lg border-2 border-red-700 shadow-[0_4px_0_darkred] active:translate-y-1 active:shadow-none transition-all">刪除</button>
+                </div>
             </div>
         </div>
     </div>
@@ -334,13 +380,14 @@
 
                     </div>
 
-                    <button onclick="addTask()" class="btn-black-neon w-full text-xl font-cyber mt-2">
-                        + CREATE TASK
+                    <!-- 8-bit Pixel 新增按鈕 -->
+                    <button onclick="addTask()" class="btn-pixel w-full mt-2">
+                        CREATE TASK
                     </button>
                 </div>
             </div>
 
-            <!-- 透明度改為 0.8 -->
+            <!-- 任務列表 (白底) -->
             <div class="y2k-window">
                 <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-[linear-gradient(90deg,var(--holo-blue),var(--neon-purple))]">
                     <span>DATABASE.DAT</span>
@@ -442,6 +489,9 @@
         let tempCustomTz = customTimezone;
         let tempManualOffset = manualOffset;
         let modalInterval = null;
+
+        // 刪除確認狀態
+        let taskToDeleteId = null;
 
         // Helper: 根據時區設定取得當前時間 Date 物件
         function getAppDate(mode = timeMode, customTz = customTimezone, manualOff = manualOffset) {
@@ -706,8 +756,26 @@
             if (task) { task.completed = !task.completed; saveTasks(); renderTasks(); }
         }
 
-        function deleteTask(id) {
-            tasks = tasks.filter(t => t.id !== id); saveTasks(); renderTasks();
+        // 打開刪除確認視窗
+        function openDeleteModal(id) {
+            taskToDeleteId = id;
+            document.getElementById('delete-modal').classList.remove('hidden');
+        }
+
+        // 關閉刪除確認視窗
+        function closeDeleteModal() {
+            taskToDeleteId = null;
+            document.getElementById('delete-modal').classList.add('hidden');
+        }
+
+        // 確認刪除
+        function confirmDelete() {
+            if (taskToDeleteId) {
+                tasks = tasks.filter(t => t.id !== taskToDeleteId); 
+                saveTasks(); 
+                renderTasks();
+                closeDeleteModal();
+            }
         }
 
         function saveTasks() {
@@ -793,7 +861,7 @@
                             ${task.text}
                         </span>
                     </div>
-                    <button onclick="deleteTask('${task.id}')" class="opacity-0 group-hover:opacity-100 transition-opacity p-2 text-lg text-gray-400 hover:text-[var(--neon-pink)] flex-shrink-0">
+                    <button onclick="openDeleteModal('${task.id}')" class="p-2 text-2xl text-gray-400 hover:text-red-500 flex-shrink-0 transition-colors drop-shadow-sm">
                         <i class="ph-bold ph-trash"></i>
                     </button>
                 `;
@@ -830,7 +898,7 @@
 
                 const cardHtml = `
                     <div class="timeline-card ${isTopCard ? 'top-[30px]' : 'bottom-[30px]'}">
-                        <div class="text-sm font-cyber text-[var(--holo-blue)] mb-1">${hourStr}</div>
+                        <div class="text-sm font-cyber text-[var(--neon-navy)] mb-1">${hourStr}</div>
                         <textarea class="w-full resize-none bg-transparent outline-none text-sm text-white placeholder:text-[rgba(255,255,255,0.4)] h-[60px] font-bold" 
                            placeholder="Type plan..." onchange="saveSchedule('${hourStr}', this.value)" oninput="saveSchedule('${hourStr}', this.value)">${textValue}</textarea>
                     </div>
@@ -857,6 +925,9 @@
     </script>
 </body>
 </html>
+
+
+
 
 
 ```
