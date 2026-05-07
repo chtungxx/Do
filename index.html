@@ -6,7 +6,7 @@
     <title>Y2K Neon Pro - 뭐 할 거예요?</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts 加入 Titan One (圓潤泡泡復古字體) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+TC:wght@500;700;900&family=Righteous&family=Titan+One&family=VT323&display=swap" rel="stylesheet">
@@ -22,13 +22,13 @@
             --neon-pink: #FF1493; 
             --neon-purple: #B55BFF; 
             --holo-blue: #85E3FF; 
-            --holo-purple: #D5AAFF; /* 舊版柔和紫 */
+            --holo-purple: #D5AAFF;
             --neon-navy: #1D4ED8; 
+            --neon-green: #39FF14;
             
-            /* Priority Colors */
             --pri-high: #FF3366;
-            --pri-mid: #FFD700;
-            --pri-low: #00FFFF;
+            --pri-mid: #FF8C00; /* 水果橙色 */
+            --pri-low: #1D4ED8; /* 海軍藍色 */
         }
 
         body {
@@ -48,13 +48,15 @@
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-dark); }
         ::-webkit-scrollbar-thumb { background: var(--neon-purple); border-radius: 10px; }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* ================= 字體設定 ================= */
+        /* ================= 字體與文字特效 ================= */
         .font-cyber { font-family: 'Righteous', cursive; }
         .font-kr { font-family: 'Black Han Sans', sans-serif; }
         .font-pixel { font-family: 'VT323', monospace; }
 
-        /* 還原舊版的紫色漸層 (Holo Purple) */
         .chrome-text {
             background: linear-gradient(to bottom, #FFFFFF 0%, #E0E8FF 30%, var(--holo-purple) 50%, var(--holo-blue) 100%);
             -webkit-background-clip: text;
@@ -62,7 +64,7 @@
             filter: drop-shadow(0px 0px 8px rgba(181, 91, 255, 0.8));
         }
 
-        /* ================= 貼紙與 3D 裝飾 ================= */
+        /* ================= 貼紙與裝飾 ================= */
         .y2k-sticker {
             position: absolute; user-select: none; pointer-events: none; z-index: 0;
             filter: drop-shadow(2px 2px 0px #000) drop-shadow(-1px -1px 0px #FFF) drop-shadow(1px -1px 0px #FFF) drop-shadow(-1px 1px 0px #FFF) drop-shadow(1px 1px 0px #FFF);
@@ -81,8 +83,7 @@
 
         /* ================= 半透明玻璃視窗 ================= */
         .y2k-window {
-            /* 調整透明度: 從 0.95 (接近不透) 改為 0.8 (半透視) */
-            background: rgba(255, 255, 255, 0.8); 
+            background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: blur(12px);
             border: 2px solid var(--holo-blue); 
             box-shadow: 0 0 25px rgba(133, 227, 255, 0.4); 
@@ -94,93 +95,71 @@
             color: #FFFFFF; padding: 8px 16px; display: flex; justify-content: space-between; align-items: center;
         }
 
-        /* ================= 冷灰元件 ================= */
+        /* ================= UI 元件 ================= */
         .input-black-neon {
-            background: #94A3B8; 
-            border: 1px solid var(--neon-purple); border-radius: 8px;
+            background: #94A3B8; border: 1px solid var(--neon-purple); border-radius: 8px;
             padding: 12px; width: 100%; color: #FFFFFF; font-weight: 700; outline: none; transition: all 0.3s;
             box-shadow: inset 0 0 10px rgba(181, 91, 255, 0.2);
         }
-        .input-black-neon:focus {
-            border-color: var(--holo-blue);
-            box-shadow: 0 0 12px var(--holo-blue), inset 0 0 10px rgba(133, 227, 255, 0.3);
-        }
-        .input-error {
-            border-color: #FF0000 !important;
-            box-shadow: 0 0 15px #FF0000 !important;
-            animation: shake 0.4s;
-        }
+        .input-black-neon:focus { border-color: var(--holo-blue); box-shadow: 0 0 12px var(--holo-blue), inset 0 0 10px rgba(133, 227, 255, 0.3); }
+        .input-error { border-color: #FF0000 !important; box-shadow: 0 0 15px #FF0000 !important; animation: shake 0.4s; }
         @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
 
-        /* 8-bit Pixel 變更為 BLACKPINK 復古泡泡按鈕 (Create Task) */
+        /* BLACKPINK 泡泡按鈕 */
         .btn-pixel {
-            background-color: #FF69B4; /* BLACKPINK 標誌性亮粉紅色 (Hot Pink) */
-            color: #000000; /* 純黑色字體 */
-            border: 4px solid #000000; /* 粗黑邊框 */
-            border-radius: 20px; /* 配合泡泡字體的圓潤邊角 */
-            font-family: 'Titan One', cursive; /* 圓潤復古泡泡字體 */
-            font-weight: 400; padding: 14px 16px; font-size: 1.3rem;
-            cursor: pointer; transition: all 0.1s; text-transform: uppercase;
-            position: relative;
-            box-shadow: 
-                inset -4px -4px 0px rgba(0, 0, 0, 0.15), /* 底部立體暗角 */
-                inset 4px 4px 0px rgba(255, 255, 255, 0.4), /* 頂部立體高光 */
-                4px 4px 0px #000000; /* 外層純黑陰影 */
-            display: block; text-align: center;
-            letter-spacing: 2px;
+            background-color: #FF69B4; color: #000000; border: 4px solid #000000; border-radius: 20px; 
+            font-family: 'Titan One', cursive; font-weight: 400; padding: 14px 16px; font-size: 1.3rem;
+            cursor: pointer; transition: all 0.1s; text-transform: uppercase; position: relative;
+            box-shadow: inset -4px -4px 0px rgba(0, 0, 0, 0.15), inset 4px 4px 0px rgba(255, 255, 255, 0.4), 4px 4px 0px #000000; 
+            display: block; text-align: center; letter-spacing: 2px;
         }
-        /* 左上角的可愛圓潤反光點 */
         .btn-pixel::before {
-            content: '';
-            position: absolute;
-            top: 8px;
-            left: 12px;
-            width: 14px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            transform: rotate(-15deg);
+            content: ''; position: absolute; top: 8px; left: 12px; width: 14px; height: 6px;
+            background: rgba(255, 255, 255, 0.9); border-radius: 10px; transform: rotate(-15deg);
         }
-        .btn-pixel:active { 
-            transform: translate(4px, 4px); 
-            box-shadow: 
-                inset -4px -4px 0px rgba(0, 0, 0, 0.15), 
-                inset 4px 4px 0px rgba(255, 255, 255, 0.4), 
-                0px 0px 0px #000000; 
-        }
+        .btn-pixel:active { transform: translate(4px, 4px); box-shadow: inset -4px -4px 0px rgba(0, 0, 0, 0.15), inset 4px 4px 0px rgba(255, 255, 255, 0.4), 0px 0px 0px #000000; }
 
-        /* 3. 控制面板藥丸按鈕 (Priority, Category, Time) */
+        /* 輔助按鈕 */
+        .btn-modal {
+            background: #94A3B8; color: #FFFFFF; border: 2px solid var(--holo-blue); border-radius: 8px; font-weight: 900; padding: 10px;
+            cursor: pointer; transition: all 0.2s; text-transform: uppercase; box-shadow: 0 0 10px var(--holo-blue);
+        }
         .control-pill {
-            background: #FFFFFF; border: 1px solid #CCC; color: #666;
-            padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-family: 'Noto Sans TC', sans-serif;
-            font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 4px;
+            background: #FFFFFF; border: 1px solid #CCC; color: #666; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; 
+            font-family: 'Noto Sans TC', sans-serif; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 4px;
         }
         .control-pill:hover { border-color: #999; color: #333; }
-        
         .control-pill.active[data-pri="High"] { border-color: var(--pri-high); box-shadow: 0 0 8px var(--pri-high); }
         .control-pill.active[data-pri="Middle"] { border-color: var(--pri-mid); box-shadow: 0 0 8px var(--pri-mid); }
         .control-pill.active[data-pri="Low"] { border-color: var(--pri-low); box-shadow: 0 0 8px var(--pri-low); }
-
         .control-pill.active[data-cat] { border-color: var(--holo-blue); box-shadow: 0 0 8px var(--holo-blue); }
         .control-pill.active[data-time] { border-color: var(--neon-pink); box-shadow: 0 0 8px var(--neon-pink); }
-        .control-pill.active[data-tz] { border-color: var(--neon-purple); box-shadow: 0 0 8px var(--neon-purple); }
 
-        .filter-btn {
-            background: #FFFFFF; color: #666; font-size: 0.75rem; font-weight: 700;
-            padding: 6px 12px; border-radius: 20px; transition: all 0.2s; border: 1px solid #CCC;
+        .filter-btn { background: #FFFFFF; color: #666; font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 20px; transition: all 0.2s; border: 1px solid #CCC; }
+        .filter-btn.active { background: #FFFFFF; border-color: var(--neon-purple); box-shadow: 0 0 8px var(--neon-purple); }
+
+        /* 分頁按鈕 (Glassmorphism Pill 帶邊框) */
+        .tab-btn { 
+            background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); 
+            border: 2px solid rgba(255,255,255,0.15); border-radius: 12px; 
+            padding: 10px 0; cursor: pointer; transition: all 0.3s ease; 
+            backdrop-filter: blur(4px);
         }
-        .filter-btn.active {
-            background: #FFFFFF; border-color: var(--neon-purple); box-shadow: 0 0 8px var(--neon-purple);
+        .tab-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
+        .tab-btn.active { 
+            background: rgba(133, 227, 255, 0.15); color: #FFFFFF; 
+            border: 2px solid var(--holo-blue); 
+            box-shadow: 0 0 10px rgba(133, 227, 255, 0.3), inset 0 0 8px rgba(133, 227, 255, 0.2);
+            text-shadow: 0 0 8px var(--holo-blue); 
         }
 
-        .tab-btn { background: transparent; color: rgba(255,255,255,0.5); border: none; padding: 8px 0; cursor: pointer; transition: all 0.3s; border-bottom: 3px solid transparent; }
-        .tab-btn.active { color: #FFFFFF; border-bottom: 3px solid var(--holo-blue); text-shadow: 0 0 10px var(--holo-blue); }
+        @keyframes pulse-mic { 0%, 100% { opacity: 1; transform: scale(1) translateY(-50%); } 50% { opacity: 0.5; transform: scale(1.2) translateY(-50%); } }
+        .mic-recording { color: #FF1493 !important; animation: pulse-mic 1s infinite; text-shadow: 0 0 10px #FF1493; }
 
         /* ================= 任務卡片 ================= */
         .task-card {
-            display: flex; align-items: start; gap: 12px; padding: 12px;
-            background: #FFFFFF; border: 1px solid #E0E0E0; border-radius: 12px;
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.05); transition: all 0.2s; position: relative; overflow: hidden;
+            display: flex; align-items: start; gap: 12px; padding: 14px 12px; background: #FFFFFF; border: 1px solid #E0E0E0; border-radius: 12px;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.05); transition: all 0.3s; position: relative; overflow: hidden;
         }
         .task-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; border-radius: 12px 0 0 12px; }
         .task-card[data-task-pri="High"]::before { background: var(--pri-high); box-shadow: 0 0 8px var(--pri-high); }
@@ -188,37 +167,82 @@
         .task-card[data-task-pri="Low"]::before { background: var(--pri-low); box-shadow: 0 0 8px var(--pri-low); }
 
         .cyber-checkbox {
-            appearance: none; width: 24px; height: 24px; background: #FFF;
-            border: 2px solid #000; border-radius: 6px; outline: none; cursor: pointer;
+            appearance: none; width: 22px; height: 22px; background: #FFF; border: 2px solid #000; border-radius: 6px; outline: none; cursor: pointer;
             position: relative; flex-shrink: 0; transition: all 0.2s; margin-top: 2px;
         }
         .cyber-checkbox:checked { background: var(--holo-blue); border-color: var(--holo-blue); box-shadow: 0 0 10px var(--holo-blue); }
-        .cyber-checkbox:checked::after { content: '✔'; position: absolute; font-size: 16px; color: #FFFFFF; font-weight: 900; top: 50%; left: 50%; transform: translate(-50%, -45%); }
-
+        .cyber-checkbox:checked::after { content: '✔'; position: absolute; font-size: 14px; color: #FFFFFF; font-weight: 900; top: 50%; left: 50%; transform: translate(-50%, -45%); }
         .task-completed { text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--neon-pink); color: #999; }
 
-        /* ================= Timeline ================= */
-        .timeline-wrapper { width: 100%; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
-        .timeline-wrapper::-webkit-scrollbar { display: none; }
-        .timeline-inner { display: flex; align-items: center; position: relative; padding: 20px 40px; height: 420px; width: max-content; }
-        .timeline-center-line {
-            position: absolute; left: 0; right: 0; top: 50%; height: 4px; border-radius: 4px; z-index: 1;
-            background: var(--neon-navy); box-shadow: 0 0 10px var(--neon-navy); transform: translateY(-50%);
+        /* ================= 全新：四大時段群組 (Period Accordion) ================= */
+        .period-header {
+            background: #FFFFFF; border: 3px solid #000; border-radius: 12px;
+            padding: 12px 16px; font-family: 'Black Han Sans', sans-serif; color: #000;
+            cursor: pointer; box-shadow: 4px 4px 0px #000; transition: all 0.2s;
+            display: flex; justify-content: space-between; align-items: center; margin-top: 10px;
         }
-        .time-node-container { position: relative; width: 180px; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; flex-shrink: 0; z-index: 2; }
-        .node-circle {
-            width: 30px; height: 30px; background: #94A3B8; border: 3px solid var(--neon-navy); border-radius: 50%; color: white;
-            display: flex; justify-content: center; align-items: center; font-family: 'Righteous', cursive; font-size: 10px; z-index: 10; box-shadow: 0 0 10px var(--neon-navy);
+        .period-header:hover { border-color: var(--holo-blue); }
+        .period-header:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #000; }
+        .period-header.open { background: var(--holo-blue); box-shadow: 4px 4px 0px var(--neon-pink); border-color: var(--neon-pink); }
+        .period-content-line { border-left: 3px dashed #000; margin-left: 20px; padding-left: 16px; padding-top: 8px; padding-bottom: 8px; }
+
+        /* ================= 復古手風琴行程表 ================= */
+        .sched-slot { transition: all 0.3s ease; }
+        .sched-time-badge {
+            font-family: 'VT323', monospace; border: 2px solid #000; border-radius: 6px; 
+            padding: 2px 8px; font-size: 1.2rem; box-shadow: 2px 2px 0px #000; z-index: 2;
         }
-        .connection-line { position: absolute; width: 2px; background-color: var(--neon-navy); box-shadow: 0 0 8px var(--neon-navy); left: 50%; transform: translateX(-50%); z-index: 5; }
-        .timeline-card {
-            position: absolute; width: 160px; background: #94A3B8; border: 1px solid var(--neon-navy); border-radius: 12px; padding: 10px; box-shadow: 0 4px 15px rgba(29, 78, 216, 0.4); z-index: 10;
+        .sched-badge-empty { background: var(--holo-blue); color: #000; }
+        .sched-badge-active { background: var(--neon-pink); color: #FFF; }
+        
+        .sched-card {
+            background: #FFFFFF; border: 3px solid var(--holo-blue); border-radius: 12px; padding: 12px;
+            box-shadow: 4px 4px 0px var(--holo-blue); width: 100%; transition: all 0.2s; position: relative;
         }
+        .sched-card:focus-within { border-color: var(--neon-pink); box-shadow: 4px 4px 0px var(--neon-pink); }
+        
+        .sched-textarea {
+            width: 100%; resize: none; background: transparent; border: none; 
+            outline: none; color: #000; font-weight: 700; font-size: 1rem; line-height: 1.4;
+        }
+
+        .synced-task-badge {
+            display: inline-block; background: #FFFFFF; color: var(--neon-pink); font-size: 0.75rem; font-weight: bold;
+            padding: 4px 8px; border-radius: 6px; border: 2px solid var(--neon-pink); margin-bottom: 8px; margin-right: 4px;
+            box-shadow: 2px 2px 0px var(--neon-pink); font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        /* ================= 每日任務 (海軍藍旗仔設計) ================= */
+        .daily-cat-card {
+            background: rgba(255, 255, 255, 0.9); border: 2px solid var(--holo-blue); 
+            border-radius: 16px; padding: 16px; box-shadow: 0 4px 15px rgba(133,227,255,0.2); 
+            margin-bottom: 20px; color: #000;
+        }
+        
+        .quest-flag-btn {
+            font-size: 26px; color: #CCC; cursor: pointer; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex; justify-content: center; align-items: center;
+        }
+        .quest-flag-btn:hover { color: var(--holo-blue); transform: scale(1.15) rotate(-5deg); }
+        .quest-flag-btn.checked {
+            color: var(--neon-navy); filter: drop-shadow(0 0 6px var(--neon-navy)); transform: scale(1.1);
+        }
+        
+        .quest-item { transition: transform 0.2s; }
+        .quest-title-text.completed {
+            color: #999; text-decoration: line-through; text-decoration-color: var(--neon-pink); text-decoration-thickness: 2px;
+        }
+
     </style>
 </head>
 <body class="min-h-screen relative font-sans">
 
-    <!-- 用 fixed 與 overflow-hidden 把貼紙關起來，防止撐破 iPhone 螢幕 -->
+    <!-- Toast Notification (取代 alert) -->
+    <div id="toast-msg" class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-[var(--holo-blue)] text-black px-6 py-2 rounded-full font-bold shadow-[0_0_15px_var(--holo-blue)] z-[100] transition-opacity duration-300 opacity-0 pointer-events-none">
+        提示訊息
+    </div>
+
     <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div class="holo-3d text-6xl" style="top: 5%; left: -2%; animation-delay: 0s;">✦</div>
         <div class="holo-3d text-5xl" style="top: 25%; right: -5%; animation-delay: 1.5s;">☾</div>
@@ -229,32 +253,90 @@
         <div class="y2k-sticker text-4xl rotate-[-20deg]" style="top: 45%; left: 2%;">🌼</div>
     </div>
 
-    <!-- ================= 時區設定隱藏視窗 (Modal) ================= -->
+    <!-- ================= 系統 Modal ================= -->
+    <div id="settings-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex justify-center items-center px-4 backdrop-blur-sm">
+        <div class="y2k-window w-full max-w-sm border-2 border-[var(--holo-blue)] shadow-[0_0_20px_var(--holo-blue)]">
+            <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-[linear-gradient(90deg,var(--holo-blue),var(--neon-purple))]">
+                <span><i class="ph-fill ph-gear mr-1"></i> SYSTEM_SETTINGS</span>
+                <button onclick="closeSettingsModal()" class="text-white hover:text-black">✖</button>
+            </div>
+            <div class="p-5 flex flex-col gap-4 bg-white text-center">
+                <p class="font-kr text-black text-lg">資料備份與還原</p>
+                <p class="text-xs text-gray-500 font-bold">匯出 JSON 檔案以備份您的待辦與行程，或在其他裝置匯入。</p>
+                <div class="flex flex-col gap-3 mt-2">
+                    <button onclick="exportData()" class="control-pill justify-center !bg-[#000] !text-white border-2 !border-[var(--holo-blue)] hover:scale-105 shadow-[0_0_8px_var(--holo-blue)]">📥 匯出備份 (Export)</button>
+                    <input type="file" id="import-file" accept=".json" class="hidden" onchange="handleImport(event)">
+                    <button onclick="document.getElementById('import-file').click()" class="control-pill justify-center !bg-gray-100 !text-black border-2 !border-gray-400 hover:bg-gray-200">📤 匯入資料 (Import)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🌟 通用刪除警告視窗 (取代 confirm) -->
+    <div id="delete-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex justify-center items-center px-4 backdrop-blur-sm">
+        <div class="y2k-window w-full max-w-xs border-2 border-red-500 shadow-[0_0_20px_red]">
+            <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-red-500 text-white">
+                <span><i class="ph-fill ph-warning-circle mr-1"></i> WARNING.EXE</span>
+            </div>
+            <div class="p-5 flex flex-col gap-4 bg-white text-center">
+                <i class="ph-fill ph-trash text-6xl text-red-500 mx-auto drop-shadow-md"></i>
+                <p id="delete-modal-msg" class="font-kr text-black text-lg">確定要永久刪除此事項嗎？</p>
+                <div class="flex gap-3 mt-2">
+                    <button onclick="closeDeleteModal()" class="flex-1 control-pill justify-center !text-black border-2 !border-gray-300 hover:bg-gray-100">取消</button>
+                    <button onclick="confirmDelete()" class="flex-1 bg-red-500 text-white font-bold py-2 rounded-lg border-2 border-red-700 shadow-[0_4px_0_darkred] active:translate-y-1 active:shadow-none transition-all">刪除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="add-daily-cat-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex justify-center items-center px-4 backdrop-blur-sm">
+        <div class="y2k-window w-full max-w-xs border-2 border-[var(--holo-blue)] shadow-[0_0_20px_var(--holo-blue)]">
+            <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-[linear-gradient(90deg,var(--holo-blue),var(--neon-purple))]">
+                <span>ADD_CATEGORY</span>
+                <button onclick="closeAddDailyCatModal()" class="text-white">✖</button>
+            </div>
+            <div class="p-4 bg-white flex flex-col gap-3">
+                <label class="text-xs font-bold text-gray-600">分類名稱 (支援 Emoji)</label>
+                <input type="text" id="new-daily-cat-name" class="input-black-neon !p-2 !text-sm text-black !bg-gray-100 !border-gray-400" placeholder="例如: 飲水紀錄 💧">
+                <button onclick="confirmAddDailyCat()" class="btn-pixel w-full !text-sm !p-3 mt-2 !bg-[var(--holo-blue)] !border-black">新增分類</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="add-daily-task-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex justify-center items-center px-4 backdrop-blur-sm">
+        <div class="y2k-window w-full max-w-xs border-2 border-[var(--neon-pink)] shadow-[0_0_20px_var(--neon-pink)]">
+            <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-[linear-gradient(90deg,var(--neon-pink),var(--holo-blue))]">
+                <span>ADD_ACTION</span>
+                <button onclick="closeAddDailyTaskModal()" class="text-white">✖</button>
+            </div>
+            <div class="p-4 bg-white flex flex-col gap-3">
+                <input type="hidden" id="add-task-cat-id">
+                <label class="text-xs font-bold text-gray-600">動作名稱</label>
+                <input type="text" id="new-daily-task-name" class="input-black-neon !p-2 !text-sm text-black !bg-gray-100 !border-gray-400" placeholder="例如: 掌上壓 10次">
+                <label class="text-xs font-bold text-gray-600 mt-2">每日需完成次數 (1-10)</label>
+                <input type="number" id="new-daily-task-times" min="1" max="10" value="1" class="input-black-neon !p-2 !text-sm text-black !bg-gray-100 !border-gray-400">
+                <button onclick="confirmAddDailyTask()" class="btn-pixel w-full !text-sm !p-3 mt-3">新增動作</button>
+            </div>
+        </div>
+    </div>
+
     <div id="timezone-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex justify-center items-center px-4 backdrop-blur-sm">
         <div class="y2k-window w-full max-w-sm border-2 border-[var(--neon-pink)] shadow-[0_0_20px_var(--neon-pink)]">
             <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-[linear-gradient(90deg,var(--neon-pink),var(--holo-blue))]">
                 <span><i class="ph-fill ph-globe mr-1"></i> TIMEZONE_SETTING</span>
                 <button onclick="closeTimezoneModal()" class="text-white hover:text-black">✖</button>
             </div>
-            <!-- 去除內層的 bg-white 以透出視窗的半透明感 -->
             <div class="p-5 flex flex-col gap-4">
-                
-                <!-- 動態預覽時鐘 -->
                 <div class="bg-white/90 p-4 rounded-lg border border-gray-300 text-center shadow-inner">
                     <p class="font-pixel text-[10px] text-gray-500 mb-1 tracking-widest">>> LIVE_PREVIEW_</p>
                     <p id="preview-tz-display" class="text-sm font-bold text-[#1D4ED8] font-kr tracking-wide mb-1"></p>
                     <p id="preview-time-display" class="text-4xl font-bold text-[var(--neon-pink)] font-cyber tracking-widest drop-shadow-[0_0_5px_rgba(255,20,147,0.3)]"></p>
                 </div>
-
-                <!-- 模式選擇 -->
                 <div class="flex flex-col gap-2">
                     <label class="text-[10px] font-cyber text-gray-800 tracking-wider">SELECT MODE</label>
                     <button id="btn-tz-local" class="control-pill justify-center" data-tz="true" onclick="selectTimeMode('local')">📱 裝置的本地時間</button>
                     <button id="btn-tz-custom" class="control-pill justify-center" data-tz="true" onclick="selectTimeMode('custom')">✈️ 旅行當地國家的時間</button>
-                    <button id="btn-tz-manual" class="control-pill justify-center" data-tz="true" onclick="selectTimeMode('manual')">✍️ 手動輸入時區 (UTC)</button>
                 </div>
-
-                <!-- 旅遊國家下拉 -->
                 <div id="custom-tz-select-container" class="hidden flex-col gap-1 mt-1">
                     <label class="text-[10px] font-cyber text-gray-800 tracking-wider">SELECT COUNTRY/REGION</label>
                     <select id="custom-tz-select" class="w-full bg-[#94A3B8] border border-[var(--holo-blue)] text-white text-sm rounded-lg px-2 py-2 outline-none font-bold shadow-inner" onchange="tempCustomTz=this.value; updateModalPreview();">
@@ -264,81 +346,51 @@
                         <option value="Asia/Taipei">🇹🇼 台灣 (CST)</option>
                         <option value="Asia/Bangkok">🇹🇭 泰國 (ICT)</option>
                         <option value="Europe/London">🇬🇧 英國 (GMT/BST)</option>
-                        <option value="Europe/Paris">🇫🇷 歐洲中部 (CET/CEST)</option>
                         <option value="America/New_York">🇺🇸 美國東岸 (EST/EDT)</option>
-                        <option value="America/Los_Angeles">🇺🇸 美國西岸 (PST/PDT)</option>
-                        <option value="Australia/Sydney">🇦🇺 澳洲雪梨 (AEST/AEDT)</option>
                     </select>
                 </div>
-
-                <!-- 手動輸入 UTC 偏移區 -->
-                <div id="manual-tz-input-container" class="hidden flex-col gap-1 mt-1">
-                    <label class="text-[10px] font-cyber text-gray-800 tracking-wider">INPUT UTC OFFSET (小時)</label>
-                    <input type="number" id="manual-tz-input" class="w-full bg-[#94A3B8] border border-[var(--holo-blue)] text-white text-sm rounded-lg px-3 py-2 outline-none font-bold shadow-inner placeholder-gray-200" placeholder="例如香港是 8, 紐約是 -5" oninput="tempManualOffset=this.value; updateModalPreview();">
-                </div>
-
-                <button onclick="saveTimezoneSettings()" class="btn-black-neon w-full text-lg font-cyber mt-2">
-                    APPLY SETTING
-                </button>
+                <button onclick="saveTimezoneSettings()" class="btn-modal w-full text-lg font-cyber mt-2">APPLY SETTING</button>
             </div>
         </div>
     </div>
 
-    <!-- ================= 刪除確認視窗 (Delete Modal) ================= -->
-    <div id="delete-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex justify-center items-center px-4 backdrop-blur-sm">
-        <div class="y2k-window w-full max-w-xs border-2 border-red-500 shadow-[0_0_20px_red]">
-            <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-red-500 text-white">
-                <span><i class="ph-fill ph-warning-circle mr-1"></i> WARNING.EXE</span>
-            </div>
-            <div class="p-5 flex flex-col gap-4 bg-white text-center">
-                <i class="ph-fill ph-trash text-6xl text-red-500 mx-auto drop-shadow-md"></i>
-                <p class="font-kr text-black text-lg">確定要永久刪除此事項嗎？</p>
-                <div class="flex gap-3 mt-2">
-                    <button onclick="closeDeleteModal()" class="flex-1 control-pill justify-center !text-black border-2 !border-gray-300 hover:bg-gray-100">取消</button>
-                    <button onclick="confirmDelete()" class="flex-1 bg-red-500 text-white font-bold py-2 rounded-lg border-2 border-red-700 shadow-[0_4px_0_darkred] active:translate-y-1 active:shadow-none transition-all">刪除</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- 內容主體：使用 mx-auto 確保容器在螢幕正中間 -->
+    <!-- ================= 內容主體 ================= -->
     <main class="w-full max-w-md mx-auto px-4 pt-12 pb-12 flex flex-col gap-6 relative z-10">
         
         <header class="text-center relative mb-2">
             <div class="font-cyber text-[12px] text-[var(--holo-purple)] tracking-[0.3em] mb-2 drop-shadow-md">NEON_PRO.OS</div>
             <h1 class="text-6xl font-kr chrome-text tracking-tighter transform -skew-x-6 mb-2">뭐 할 거예요?</h1>
             
-            <div class="mt-2 inline-flex items-center gap-2 bg-[#94A3B8] border border-[var(--holo-blue)] px-5 py-1 rounded-full shadow-[0_0_15px_rgba(133,227,255,0.4)] cursor-pointer hover:scale-105 transition-transform" onclick="openTimezoneModal()" title="設定時區">
-                <i class="ph-fill ph-globe text-white text-lg drop-shadow-[0_0_5px_white]"></i>
-                <p class="font-pixel text-xl text-[#FFFFFF] tracking-widest pt-0.5" id="current-date">DD/MM/YY</p>
+            <div class="mt-2 flex items-center justify-center gap-2">
+                <div class="inline-flex items-center gap-2 bg-[#94A3B8] border border-[var(--holo-blue)] px-5 py-1 rounded-full shadow-[0_0_15px_rgba(133,227,255,0.4)] cursor-pointer hover:scale-105 transition-transform" onclick="openTimezoneModal()" title="設定時區">
+                    <i class="ph-fill ph-globe text-white text-lg drop-shadow-[0_0_5px_white]"></i>
+                    <p class="font-pixel text-xl text-[#FFFFFF] tracking-widest pt-0.5" id="current-date">DD/MM/YY</p>
+                </div>
+                <button onclick="document.getElementById('settings-modal').classList.remove('hidden')" class="bg-[#94A3B8] border border-[var(--holo-blue)] w-8 h-8 rounded-full flex justify-center items-center text-white hover:scale-110 shadow-[0_0_10px_rgba(133,227,255,0.4)]">
+                    <i class="ph-fill ph-gear text-lg"></i>
+                </button>
             </div>
         </header>
 
-        <div class="flex justify-center px-2 font-kr text-xl mb-2">
-            <button onclick="switchTab('todo')" id="tab-todo" class="tab-btn active flex-1">
-                할 일 <span class="font-cyber text-sm ml-1 text-[var(--holo-blue)]">TO-DO</span>
-            </button>
-            <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn flex-1">
-                일정 <span class="font-cyber text-sm ml-1 text-[var(--holo-blue)]">SCHEDULE</span>
-            </button>
+        <div class="flex justify-between px-1 font-kr text-base mb-2 gap-2">
+            <button onclick="switchTab('todo')" id="tab-todo" class="tab-btn active flex-1">할 일 <span class="font-cyber text-[9px] ml-0.5 text-[var(--holo-blue)] block sm:inline">TO-DO</span></button>
+            <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn flex-1">일정 <span class="font-cyber text-[9px] ml-0.5 text-[var(--holo-blue)] block sm:inline">SCHEDULE</span></button>
+            <button onclick="switchTab('daily')" id="tab-daily" class="tab-btn flex-1">루틴 <span class="font-cyber text-[9px] ml-0.5 text-[var(--holo-blue)] block sm:inline">DAILY</span></button>
         </div>
 
         <!-- ================= 分頁 1: 待辦清單 ================= -->
         <div id="view-todo" class="flex flex-col gap-6">
-            
-            <!-- 透明度改為 0.8 -->
             <div class="y2k-window">
                 <div class="y2k-header font-cyber text-[12px] tracking-widest">
                     <span><i class="ph-fill ph-magic-wand text-white mr-1"></i> ADD_MISSION</span>
                 </div>
-                
-                <!-- 移除純白背景 -->
-                <div class="p-5 flex flex-col gap-4">
-                    <input type="text" id="new-task-input" class="input-black-neon text-lg placeholder-gray-200" placeholder="Type your plan here... (必填)">
+                <div class="p-5 flex flex-col">
+                    <div class="relative w-full">
+                        <input type="text" id="new-task-input" class="input-black-neon text-lg placeholder-gray-200 pr-12" placeholder="Type your plan here... (必填)">
+                        <button id="mic-btn" onclick="startVoiceInput()" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-2xl text-[var(--holo-blue)] hover:scale-110 transition-transform drop-shadow-[0_0_5px_var(--holo-blue)]" title="用語音輸入"><i class="ph-fill ph-microphone"></i></button>
+                    </div>
                     
-                    <div class="bg-white/70 border border-gray-300 rounded-lg p-3 flex flex-col gap-4 shadow-inner">
-                        
+                    <div id="advanced-options" class="hidden bg-white/70 border border-gray-300 rounded-lg p-3 flex-col gap-4 shadow-inner mt-4">
                         <div>
                             <div class="text-[10px] font-cyber text-gray-800 mb-1.5 tracking-wider">URGENCY (緊急程度)</div>
                             <div class="flex flex-wrap gap-2">
@@ -347,7 +399,6 @@
                                 <button class="control-pill" id="pri-Low" data-pri="Low" onclick="setPriority('Low')">🧊 Low</button>
                             </div>
                         </div>
-
                         <div>
                             <div class="text-[10px] font-cyber text-gray-800 mb-1.5 tracking-wider">CATEGORY (分類)</div>
                             <div class="flex flex-wrap gap-2">
@@ -358,7 +409,6 @@
                                 <button class="control-pill" id="cat-其他" data-cat="其他" onclick="setCategory('其他')">✨ 其他</button>
                             </div>
                         </div>
-
                         <div>
                             <div class="text-[10px] font-cyber text-gray-800 mb-1.5 tracking-wider">TIME (時間)</div>
                             <div class="flex flex-wrap gap-2">
@@ -366,7 +416,6 @@
                                 <button class="control-pill" id="tag-custom" data-time="custom" onclick="selectTimeTag('custom')">⏰ 自訂時間</button>
                             </div>
                         </div>
-
                         <div id="custom-datetime-container" class="hidden flex gap-2 w-full mt-1 bg-[#94A3B8] p-2 rounded-lg border border-gray-400">
                             <div class="flex-1">
                                 <label class="block text-[9px] font-cyber mb-1 text-[var(--holo-blue)]">DATE</label>
@@ -377,25 +426,28 @@
                                 <input type="time" id="custom-time-input" class="input-black-neon !p-1.5 !text-xs !shadow-none">
                             </div>
                         </div>
-
                     </div>
-
-                    <!-- 8-bit Pixel 新增按鈕 -->
-                    <button onclick="addTask()" class="btn-pixel w-full mt-2">
-                        CREATE TASK
+                    <button onclick="toggleOptions()" id="toggle-options-btn" class="text-[11px] text-gray-600 font-bold mt-2 hover:text-[var(--neon-pink)] transition-colors text-right w-full">
+                        ➕ 展開詳細設定 (分類 / 時間 / 緊急)
                     </button>
+                    <button onclick="addTask()" class="btn-pixel w-full mt-4">CREATE TASK</button>
                 </div>
             </div>
 
-            <!-- 任務列表 (白底) -->
             <div class="y2k-window">
                 <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-[linear-gradient(90deg,var(--holo-blue),var(--neon-purple))]">
-                    <span>DATABASE.DAT</span>
+                    <div class="flex items-center gap-3 w-full">
+                        <span>DATABASE.DAT</span>
+                        <div class="flex-1 max-w-[120px] flex items-center gap-2 ml-auto">
+                            <div class="w-full h-2.5 bg-black rounded-full overflow-hidden border border-white/50">
+                                <div id="progress-bar-fill" class="h-full bg-[var(--neon-pink)] transition-all duration-300 w-0"></div>
+                            </div>
+                            <span id="progress-text" class="text-[10px] text-white">0/0</span>
+                        </div>
+                    </div>
                 </div>
-                <!-- 移除純白背景 -->
-                <div class="p-4">
-                    
-                    <div class="flex flex-col gap-3 mb-5 p-3 bg-white/70 rounded-xl border border-gray-300 shadow-inner">
+                <div class="p-4 bg-white/70">
+                    <div class="flex flex-col gap-3 mb-5 p-3 bg-white rounded-xl border border-gray-300 shadow-inner">
                         <div>
                             <div class="text-[10px] font-cyber text-gray-700 mb-1.5 tracking-wider">CATEGORY (分類)</div>
                             <div class="flex flex-wrap gap-2">
@@ -419,47 +471,73 @@
                             <div class="flex-1 border-l border-gray-300 pl-4">
                                 <div class="text-[10px] font-cyber text-gray-700 mb-1.5 tracking-wider">SORT BY (排序)</div>
                                 <select id="sort-select" class="w-full bg-white border border-gray-400 text-gray-600 text-xs rounded-lg px-2 py-1.5 outline-none font-bold shadow-sm" onchange="applySort(this.value)">
-                                    <option value="Default">🔥 緊急程度優先</option>
-                                    <option value="Time">⏰ 截止時間優先</option>
+                                    <option value="Default">🔥 緊急程度</option>
+                                    <option value="Time">⏰ 截止時間</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-
                     <div class="mb-6">
                         <div class="font-cyber text-[12px] text-[var(--neon-purple)] mb-3 tracking-widest drop-shadow-[0_0_2px_rgba(255,255,255,0.8)]">>> ACTIVE_MISSIONS</div>
                         <div id="today-task-list" class="flex flex-col gap-3"></div>
                     </div>
-
-                    <div class="w-full h-px bg-gray-300 my-6"></div>
-
+                    <div class="w-full h-px bg-gray-400 my-6"></div>
                     <div>
                         <div class="font-cyber text-[12px] text-gray-600 mb-3 tracking-widest">>> ARCHIVE (已完成)</div>
                         <div id="other-task-list" class="flex flex-col gap-3 opacity-80"></div>
                     </div>
-
                 </div>
             </div>
-
         </div>
 
-        <!-- ================= 分頁 2: 橫向行程表 ================= -->
+        <!-- ================= 分頁 2: 行程表 ================= -->
         <div id="view-schedule" class="hidden flex flex-col gap-6 w-full max-w-full">
-            <div class="y2k-window overflow-hidden">
-                <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-[linear-gradient(90deg,var(--neon-purple),var(--neon-pink))]">
-                    <span>TIMELINE.SYS</span>
+            <div class="y2k-window overflow-hidden flex flex-col max-h-[80vh]">
+                <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-[linear-gradient(90deg,var(--neon-purple),var(--neon-pink))] flex-shrink-0">
+                    <div class="flex justify-between w-full items-center">
+                        <span>SCHEDULE.SYS</span>
+                        <button onclick="scrollToCurrentTime()" class="bg-white/20 hover:bg-white/40 border border-white px-2 py-0.5 rounded text-[10px] transition-colors">
+                            📍 移至現在時間
+                        </button>
+                    </div>
                 </div>
-                <!-- 移除純白背景 -->
-                <div class="relative">
-                    <div class="p-5 pb-0 relative z-20">
-                        <h2 class="text-3xl font-kr text-black mb-1 chrome-text inline-block">계획형 인간</h2>
-                        <p class="font-pixel text-[var(--neon-purple)] text-[12px] mt-2 tracking-widest drop-shadow-[0_0_2px_rgba(255,255,255,0.8)]">> SWIPE TO NAVIGATE_</p>
+                <div class="relative bg-white/70 p-4 overflow-y-auto no-scrollbar flex-1" id="schedule-scroll-area">
+                    
+                    <div class="flex justify-between items-end mb-1">
+                        <h2 class="text-3xl font-kr text-black chrome-text inline-block">계획형 인간</h2>
                     </div>
-                    <div class="timeline-wrapper">
-                        <div class="timeline-inner" id="timeline-container">
-                            <div class="timeline-center-line"></div>
-                        </div>
+                    
+                    <div id="schedule-task-count" class="bg-white text-[var(--neon-purple)] font-pixel text-sm py-1.5 px-3 rounded-lg border border-[var(--neon-purple)] mb-4 inline-block shadow-[0_0_8px_var(--neon-purple)]">
+                        >> 系統讀取中...
                     </div>
+                    
+                    <p class="font-pixel text-gray-600 text-[12px] tracking-widest mb-4">>> 點擊空白處新增行程_</p>
+                    <div id="timeline-container" class="flex flex-col gap-2 pb-10"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= 分頁 3: 每日任務 ================= -->
+        <div id="view-daily" class="hidden flex flex-col gap-6 w-full max-w-full">
+            <div class="y2k-window overflow-hidden flex flex-col max-h-[80vh]">
+                <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-[linear-gradient(90deg,var(--holo-blue),var(--neon-purple))] flex-shrink-0">
+                    <div class="flex justify-between w-full items-center">
+                        <span class="text-white font-bold">DAILY_QUESTS.SYS</span>
+                        <span class="text-[10px] bg-white text-[var(--neon-purple)] px-2 py-0.5 rounded font-pixel font-bold">>> 每日重置</span>
+                    </div>
+                </div>
+                
+                <div class="relative bg-white/70 p-4 overflow-y-auto no-scrollbar flex-1">
+                    <h2 class="text-3xl font-kr text-black mb-1 chrome-text inline-block">루틴</h2>
+                    <p class="font-pixel text-gray-600 text-[12px] mt-1 tracking-widest mb-6">>> 養成習慣 打怪升級_</p>
+                    
+                    <div id="daily-container" class="flex flex-col gap-4 pb-6">
+                        <!-- JS 動態生成每日任務卡片 -->
+                    </div>
+                    
+                    <button onclick="openAddDailyCatModal()" class="w-full border-2 border-dashed border-[var(--holo-blue)] text-gray-600 font-bold py-3 rounded-xl hover:border-[var(--neon-pink)] hover:text-[var(--neon-pink)] transition-colors mt-2 bg-white/50">
+                        + 新增分類
+                    </button>
                 </div>
             </div>
         </div>
@@ -471,347 +549,382 @@
         let tasks = JSON.parse(localStorage.getItem('holo_pro_tasks')) || [];
         let schedule = JSON.parse(localStorage.getItem('holo_pro_schedule')) || {};
         
-        // UI與操作狀態
-        let currentTimeTag = '';
-        let currentPriority = '';
-        let currentCategory = '';
-        let currentFilter = 'All';
-        let currentTimeFilter = 'All';
-        let currentSortOrder = 'Default';
-
-        // 時區相關變數
-        let timeMode = localStorage.getItem('holo_pro_time_mode') || 'local'; // 'local', 'custom', 'manual'
-        let customTimezone = localStorage.getItem('holo_pro_custom_tz') || 'Asia/Tokyo';
-        let manualOffset = localStorage.getItem('holo_pro_manual_tz') || '8';
-        
-        // Modal 暫存變數與計時器
-        let tempTimeMode = timeMode;
-        let tempCustomTz = customTimezone;
-        let tempManualOffset = manualOffset;
-        let modalInterval = null;
-
-        // 刪除確認狀態
-        let taskToDeleteId = null;
-
-        // Helper: 根據時區設定取得當前時間 Date 物件
-        function getAppDate(mode = timeMode, customTz = customTimezone, manualOff = manualOffset) {
-            if (mode === 'custom' && customTz) {
-                try {
-                    return new Date(new Date().toLocaleString("en-US", {timeZone: customTz}));
-                } catch(e) { return new Date(); }
-            } else if (mode === 'manual') {
-                const offset = parseFloat(manualOff) || 0;
-                const now = new Date();
-                const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-                return new Date(utc + (3600000 * offset));
+        const defaultDaily = [
+            {
+                id: 'cat-rehab', title: '復康運動 🦵🏽',
+                tasks: [
+                    { id: 't1', name: '步行 🚶🏼‍♀️ 20-30分鐘', maxTimes: 2, completedTimes: 0 },
+                    { id: 't2', name: '腳踭拉筋 🦥 前後腳/趷高', maxTimes: 3, completedTimes: 0 },
+                    { id: 't3', name: '橡筋帶 🔰 扭動腳腕 10分鐘', maxTimes: 3, completedTimes: 0 },
+                    { id: 't4', name: '平衡板 🛟 扭動腳腕 10分鐘', maxTimes: 2, completedTimes: 0 },
+                    { id: 't5', name: '南船仔 ⛴️ 腳踭 10分鐘', maxTimes: 1, completedTimes: 0 }
+                ]
+            },
+            {
+                id: 'cat-diet', title: '減肥運動 🥋',
+                tasks: [
+                    { id: 't6', name: '啞鈴 🏋️‍♀️ 10分鐘', maxTimes: 1, completedTimes: 0 },
+                    { id: 't7', name: '腹肌訓練 🚣🏼 10分鐘', maxTimes: 1, completedTimes: 0 },
+                    { id: 't8', name: '掌上壓 🤸🏼 10分鐘', maxTimes: 1, completedTimes: 0 },
+                    { id: 't9', name: '深蹲 🏂 10分鐘', maxTimes: 1, completedTimes: 0 },
+                    { id: 't10', name: '滑雪 ⛷️ 10分鐘', maxTimes: 1, completedTimes: 0 },
+                    { id: 't11', name: '彈床 🤾🏼 10分鐘', maxTimes: 1, completedTimes: 0 }
+                ]
+            },
+            {
+                id: 'cat-korean', title: '韓文學習 🇰🇷',
+                tasks: [
+                    { id: 't12', name: 'Duolingo', maxTimes: 3, completedTimes: 0 },
+                    { id: 't13', name: 'Topik 1 常見詞語', maxTimes: 1, completedTimes: 0 },
+                    { id: 't14', name: '韓文Grammar', maxTimes: 1, completedTimes: 0 }
+                ]
             }
-            return new Date(); // 'local'
+        ];
+        
+        let dailyData = JSON.parse(localStorage.getItem('holo_pro_daily')) || defaultDaily;
+        
+        // 自動補齊舊用戶可能沒有的「韓文學習」分類
+        if (!dailyData.find(cat => cat.id === 'cat-korean')) {
+            dailyData.push(defaultDaily.find(cat => cat.id === 'cat-korean'));
+            localStorage.setItem('holo_pro_daily', JSON.stringify(dailyData));
         }
 
+        let dailyLastDate = localStorage.getItem('holo_pro_daily_date') || '';
+
+        let currentTimeTag = ''; let currentPriority = ''; let currentCategory = '';
+        let currentFilter = 'All'; let currentTimeFilter = 'All'; let currentSortOrder = 'Default';
+        let optionsExpanded = false;
+
+        let timeMode = localStorage.getItem('holo_pro_time_mode') || 'local'; 
+        let customTimezone = localStorage.getItem('holo_pro_custom_tz') || 'Asia/Hong_Kong';
+        let tempTimeMode = timeMode; let tempCustomTz = customTimezone; 
+        let modalInterval = null; 
+        
+        let deleteType = ''; let targetId1 = null; let targetId2 = null;
+        let expandedSlots = new Set();
+
+        // 💡 NEW: 記錄 4 大時段的設定與展開狀態
+        const schedulePeriods = [
+            { id: 'p1', name: '🌃 凌晨 (00:00 - 05:59)', start: 0, end: 5 },
+            { id: 'p2', name: '🌅 上午 (06:00 - 11:59)', start: 6, end: 11 },
+            { id: 'p3', name: '☀️ 下午 (12:00 - 17:59)', start: 12, end: 17 },
+            { id: 'p4', name: '🌙 夜晚 (18:00 - 23:59)', start: 18, end: 23 }
+        ];
+        let expandedPeriods = new Set();
+        let isFirstScheduleRender = true;
+
+        function getAppDate(mode = timeMode, customTz = customTimezone) {
+            if (mode === 'custom' && customTz) {
+                try { return new Date(new Date().toLocaleString("en-US", {timeZone: customTz})); } 
+                catch(e) { return new Date(); }
+            }
+            return new Date(); 
+        }
+
+        function formatDateToYYYYMMDD(dateObj) {
+            const yyyy = dateObj.getFullYear();
+            const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const dd = String(dateObj.getDate()).padStart(2, '0');
+            return `${yyyy}-${mm}-${dd}`;
+        }
         function formatDateToDDMMYY(dateObj) {
             const dd = String(dateObj.getDate()).padStart(2, '0');
             const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
             const yy = String(dateObj.getFullYear()).slice(-2);
             return `${dd}/${mm}/${yy}`;
         }
+        function getTodayDateStr() { return formatDateToYYYYMMDD(getAppDate()); }
 
-        function getTodayDateStr() {
-            const today = getAppDate();
-            return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-        }
-
-        // 頁面載入初始化
         window.onload = () => {
             updateTopDateDisplay();
-            
             const now = getAppDate();
             document.getElementById('custom-date-input').value = getTodayDateStr();
             document.getElementById('custom-time-input').value = `${String((now.getHours()+1)%24).padStart(2, '0')}:00`;
-
-            renderTasks();
-            renderSchedule();
+            checkDailyReset(); renderTasks(); renderSchedule(); renderDailyTasks();
         };
 
-        function updateTopDateDisplay() {
-            const now = getAppDate();
-            document.getElementById('current-date').innerText = formatDateToDDMMYY(now);
+        function showToast(msg) {
+            const toast = document.getElementById('toast-msg');
+            toast.innerText = msg; toast.classList.remove('opacity-0');
+            setTimeout(() => { toast.classList.add('opacity-0'); }, 3000);
         }
 
-        // ================= 時區設定 Modal 邏輯 =================
-        
-        function openTimezoneModal() {
-            document.getElementById('timezone-modal').classList.remove('hidden');
-            
-            tempTimeMode = timeMode;
-            tempCustomTz = customTimezone;
-            tempManualOffset = manualOffset;
+        function updateTopDateDisplay() { document.getElementById('current-date').innerText = formatDateToDDMMYY(getAppDate()); }
 
-            document.getElementById('custom-tz-select').value = tempCustomTz;
-            document.getElementById('manual-tz-input').value = tempManualOffset;
-
-            selectTimeMode(tempTimeMode, true);
-            
-            updateModalPreview();
-            modalInterval = setInterval(updateModalPreview, 1000);
-        }
-
-        function closeTimezoneModal() {
-            document.getElementById('timezone-modal').classList.add('hidden');
-            if (modalInterval) clearInterval(modalInterval);
-        }
-
-        function selectTimeMode(mode, fromInit = false) {
-            tempTimeMode = mode;
-            ['local', 'custom', 'manual'].forEach(m => {
-                document.getElementById(`btn-tz-${m}`).classList.remove('active');
-            });
-            document.getElementById(`btn-tz-${mode}`).classList.add('active');
-
-            document.getElementById('custom-tz-select-container').classList.add('hidden');
-            document.getElementById('manual-tz-input-container').classList.add('hidden');
-
-            if (mode === 'custom') {
-                document.getElementById('custom-tz-select-container').classList.remove('hidden');
-            } else if (mode === 'manual') {
-                document.getElementById('manual-tz-input-container').classList.remove('hidden');
+        // ================= 每日任務 =================
+        function checkDailyReset() {
+            const todayStr = getTodayDateStr();
+            if (dailyLastDate !== todayStr) {
+                dailyData.forEach(cat => { cat.tasks.forEach(t => t.completedTimes = 0); });
+                dailyLastDate = todayStr; saveDaily();
             }
+        }
+        function saveDaily() { localStorage.setItem('holo_pro_daily', JSON.stringify(dailyData)); localStorage.setItem('holo_pro_daily_date', dailyLastDate); }
+
+        function renderDailyTasks() {
+            const container = document.getElementById('daily-container');
+            container.innerHTML = '';
             
+            dailyData.forEach(cat => {
+                const catEl = document.createElement('div');
+                catEl.className = 'daily-cat-card relative overflow-hidden';
+                
+                let tasksHtml = '';
+                cat.tasks.forEach(task => {
+                    let checkboxes = '';
+                    for (let i = 0; i < task.maxTimes; i++) {
+                        const isChecked = i < task.completedTimes ? 'checked' : '';
+                        const iconClass = i < task.completedTimes ? 'ph-fill ph-flag' : 'ph-bold ph-flag';
+                        checkboxes += `
+                            <label class="cursor-pointer">
+                                <input type="checkbox" class="hidden daily-cb-${task.id}" ${isChecked ? 'checked' : ''} onchange="calcDailyCompleted('${cat.id}', '${task.id}')">
+                                <i class="${iconClass} quest-flag-btn ${isChecked ? 'checked' : ''}"></i>
+                            </label>
+                        `;
+                    }
+                    
+                    const isTaskDone = task.completedTimes >= task.maxTimes;
+                    const textClass = isTaskDone ? 'quest-title-text completed' : 'text-gray-800 font-bold';
+
+                    tasksHtml += `
+                        <div class="quest-item flex flex-col gap-1 py-2.5 border-b border-gray-200 last:border-0 group">
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-[15px] leading-snug flex-1 ${textClass}">${task.name}</span>
+                                <div class="flex gap-0.5 flex-shrink-0 flex-wrap justify-end items-center">${checkboxes}</div>
+                            </div>
+                            <div class="flex justify-end mt-1">
+                                <button onclick="openDeleteModal('dailyTask', '${cat.id}', '${task.id}')" class="text-[11px] text-gray-400 hover:text-red-500 font-bold px-2 py-0.5 rounded border border-transparent hover:border-red-200 transition-all">🗑️ 刪除動作</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                catEl.innerHTML = `
+                    <div class="flex justify-between items-center mb-3 border-b-2 border-dashed border-[var(--holo-blue)] pb-2 relative z-10">
+                        <h3 class="font-kr text-xl text-[var(--neon-purple)] drop-shadow-sm">>> ${cat.title}</h3>
+                        <button onclick="openDeleteModal('dailyCat', '${cat.id}')" class="text-gray-400 hover:text-red-500 text-sm"><i class="ph-bold ph-trash"></i></button>
+                    </div>
+                    <div class="flex flex-col relative z-10">${tasksHtml}</div>
+                    <button onclick="openAddDailyTaskModal('${cat.id}')" class="w-full mt-4 text-[11px] font-bold text-gray-500 border border-dashed border-gray-400 rounded py-2 transition-colors hover:border-[var(--neon-pink)] hover:text-[var(--neon-pink)] relative z-10">
+                        + 新增動作
+                    </button>
+                `;
+                container.appendChild(catEl);
+            });
+        }
+
+        function calcDailyCompleted(catId, taskId) {
+            const boxes = document.querySelectorAll(`.daily-cb-${taskId}`);
+            let count = 0; boxes.forEach(b => { if(b.checked) count++; });
+            const cat = dailyData.find(c => c.id === catId);
+            const task = cat.tasks.find(t => t.id === taskId);
+            task.completedTimes = count; saveDaily(); renderDailyTasks();
+        }
+
+        function openAddDailyCatModal() { document.getElementById('add-daily-cat-modal').classList.remove('hidden'); }
+        function closeAddDailyCatModal() { document.getElementById('add-daily-cat-modal').classList.add('hidden'); document.getElementById('new-daily-cat-name').value = ''; }
+        function confirmAddDailyCat() {
+            const name = document.getElementById('new-daily-cat-name').value.trim();
+            if(name) { dailyData.push({ id: 'cat-' + Date.now(), title: name, tasks: [] }); saveDaily(); renderDailyTasks(); closeAddDailyCatModal(); }
+        }
+
+        function openAddDailyTaskModal(catId) { document.getElementById('add-task-cat-id').value = catId; document.getElementById('add-daily-task-modal').classList.remove('hidden'); }
+        function closeAddDailyTaskModal() { document.getElementById('add-daily-task-modal').classList.add('hidden'); document.getElementById('new-daily-task-name').value = ''; document.getElementById('new-daily-task-times').value = '1'; }
+        function confirmAddDailyTask() {
+            const catId = document.getElementById('add-task-cat-id').value;
+            const name = document.getElementById('new-daily-task-name').value.trim();
+            const times = parseInt(document.getElementById('new-daily-task-times').value) || 1;
+            if(name && times > 0) {
+                const cat = dailyData.find(c => c.id === catId);
+                cat.tasks.push({ id: 't-' + Date.now(), name: name, maxTimes: times, completedTimes: 0 });
+                saveDaily(); renderDailyTasks(); closeAddDailyTaskModal();
+            }
+        }
+
+        // ================= 統一刪除 =================
+        function openDeleteModal(type, id1, id2 = null) {
+            deleteType = type; targetId1 = id1; targetId2 = id2;
+            const msgEl = document.getElementById('delete-modal-msg');
+            if(type === 'todo') msgEl.innerText = '確定要永久刪除此事項嗎？';
+            else if(type === 'dailyCat') msgEl.innerText = '確定要刪除整個分類及其動作嗎？';
+            else if(type === 'dailyTask') msgEl.innerText = '確定要刪除此動作嗎？';
+            document.getElementById('delete-modal').classList.remove('hidden');
+        }
+        function closeDeleteModal() { document.getElementById('delete-modal').classList.add('hidden'); deleteType = ''; targetId1 = null; targetId2 = null; }
+        function confirmDelete() {
+            if (deleteType === 'todo') { tasks = tasks.filter(t => t.id !== targetId1); saveTasks(); renderTasks(); renderSchedule(); } 
+            else if (deleteType === 'dailyCat') { dailyData = dailyData.filter(c => c.id !== targetId1); saveDaily(); renderDailyTasks(); } 
+            else if (deleteType === 'dailyTask') {
+                const cat = dailyData.find(c => c.id === targetId1);
+                if (cat) { cat.tasks = cat.tasks.filter(t => t.id !== targetId2); saveDaily(); renderDailyTasks(); }
+            }
+            closeDeleteModal();
+        }
+
+        // ================= 匯出匯入 =================
+        function closeSettingsModal() { document.getElementById('settings-modal').classList.add('hidden'); }
+        function exportData() {
+            const data = { tasks, schedule, dailyData, dailyLastDate };
+            const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+            const url = URL.createObjectURL(blob); const a = document.createElement("a");
+            a.href = url; a.download = "y2k_journal_backup.json"; a.click();
+        }
+        function handleImport(event) {
+            const file = event.target.files[0]; if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (imported.tasks) tasks = imported.tasks; if (imported.schedule) schedule = imported.schedule;
+                    if (imported.dailyData) dailyData = imported.dailyData; if (imported.dailyLastDate) dailyLastDate = imported.dailyLastDate;
+                    saveTasks(); saveDaily(); localStorage.setItem('holo_pro_schedule', JSON.stringify(schedule));
+                    renderTasks(); renderSchedule(); renderDailyTasks(); showToast("資料匯入成功！✨"); closeSettingsModal();
+                } catch(err) { showToast("檔案格式錯誤 ❌"); }
+            }; reader.readAsText(file);
+        }
+
+        // ================= 語音助理 =================
+        let recognition;
+        function initSpeech() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                recognition = new SpeechRecognition(); recognition.lang = 'yue-Hant-HK'; recognition.interimResults = false; recognition.maxAlternatives = 1;
+                recognition.onstart = function() { document.getElementById('mic-btn').classList.add('mic-recording'); };
+                recognition.onend = function() { document.getElementById('mic-btn').classList.remove('mic-recording'); };
+                recognition.onresult = function(event) { processSpeechCommand(event.results[0][0].transcript); };
+            } else { showToast("您的裝置不支援語音輸入功能！"); }
+        }
+        function startVoiceInput() { if (!recognition) initSpeech(); if (recognition) { resetForm(); recognition.start(); } }
+        function processSpeechCommand(transcript) {
+            let pText = transcript; let pPri = ''; let pCat = ''; let pTimeTag = ''; let pDate = ''; const now = getAppDate();
+            if (/緊急|好趕|好急|high|最急/i.test(pText)) pPri = 'High'; else if (/中等|普通|一般|mid/i.test(pText)) pPri = 'Middle'; else if (/不急|慢慢|low|得閒先/i.test(pText)) pPri = 'Low';
+            pText = pText.replace(/(緊急|好趕|好急|high|最急|中等|普通|一般|mid|不急|慢慢|low|得閒先)/ig, '');
+            if (/旅行|機票|酒店|飛機/i.test(pText)) pCat = '旅行'; else if (/工作|返工|開會/i.test(pText)) pCat = '工作'; else if (/家庭|屋企/i.test(pText)) pCat = '家庭'; else if (/買|購物|超市/i.test(pText)) pCat = '購物';
+            if (/今日內|今日|今天/i.test(pText)) { pTimeTag = 'today'; pText = pText.replace(/(今日內|今日|今天)/ig, ''); } 
+            else if (/聽日|明天/i.test(pText)) { pTimeTag = 'custom'; now.setDate(now.getDate() + 1); pDate = formatDateToYYYYMMDD(now); pText = pText.replace(/(聽日|明天)/ig, ''); } 
+            else {
+                const daysMap = { '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '日': 0, '天': 0 };
+                const match = pText.match(/下[星週個][期]*([一二三四五六日天])/);
+                if (match) {
+                    pTimeTag = 'custom'; let targetDay = daysMap[match[1]];
+                    let daysUntil = (targetDay + 7 - now.getDay()) % 7; if (daysUntil === 0) daysUntil = 7; 
+                    now.setDate(now.getDate() + daysUntil); pDate = formatDateToYYYYMMDD(now); pText = pText.replace(/下[星週個][期]*[一二三四五六日天]/ig, '');
+                }
+            }
+            pText = pText.replace(/幫我(加|記低|新增)?|加一個|記低/g, '').trim(); pText = pText.replace(/^[，。、！？,\.\s]+|[，。、！？,\.\s]+$/g, '');
+            document.getElementById('new-task-input').value = pText;
+            if(pPri) setPriority(pPri); if(pCat) setCategory(pCat);
+            if(pTimeTag) { selectTimeTag(pTimeTag); if(pTimeTag === 'custom' && pDate) document.getElementById('custom-date-input').value = pDate; }
+            if(!optionsExpanded) toggleOptions();
+        }
+
+        // ================= 時區 Modal =================
+        function openTimezoneModal() {
+            document.getElementById('timezone-modal').classList.remove('hidden'); tempTimeMode = timeMode; tempCustomTz = customTimezone;
+            document.getElementById('custom-tz-select').value = tempCustomTz; selectTimeMode(tempTimeMode, true); updateModalPreview(); modalInterval = setInterval(updateModalPreview, 1000);
+        }
+        function closeTimezoneModal() { document.getElementById('timezone-modal').classList.add('hidden'); if (modalInterval) clearInterval(modalInterval); }
+        function selectTimeMode(mode, fromInit = false) {
+            tempTimeMode = mode; ['local', 'custom'].forEach(m => document.getElementById(`btn-tz-${m}`).classList.remove('active'));
+            document.getElementById(`btn-tz-${mode}`).classList.add('active');
+            if (mode === 'custom') document.getElementById('custom-tz-select-container').classList.remove('hidden'); else document.getElementById('custom-tz-select-container').classList.add('hidden');
             if (!fromInit) updateModalPreview();
         }
-
         function updateModalPreview() {
-            const previewDate = getAppDate(tempTimeMode, tempCustomTz, tempManualOffset);
-            
-            const hh = String(previewDate.getHours()).padStart(2, '0');
-            const mm = String(previewDate.getMinutes()).padStart(2, '0');
-            const ss = String(previewDate.getSeconds()).padStart(2, '0');
+            const previewDate = getAppDate(tempTimeMode, tempCustomTz);
+            const hh = String(previewDate.getHours()).padStart(2, '0'); const mm = String(previewDate.getMinutes()).padStart(2, '0'); const ss = String(previewDate.getSeconds()).padStart(2, '0');
             document.getElementById('preview-time-display').innerText = `${hh}:${mm}:${ss}`;
-
-            let title = "📱 裝置的本地時間";
-            if (tempTimeMode === 'custom') {
-                const selectEl = document.getElementById('custom-tz-select');
-                title = `✈️ ${selectEl.options[selectEl.selectedIndex].text}`;
-            } else if (tempTimeMode === 'manual') {
-                title = `✍️ 手動 UTC ${tempManualOffset >= 0 ? '+' : ''}${tempManualOffset}`;
-            }
+            let title = "📱 裝置的本地時間"; if (tempTimeMode === 'custom') title = `✈️ ${document.getElementById('custom-tz-select').options[document.getElementById('custom-tz-select').selectedIndex].text}`;
             document.getElementById('preview-tz-display').innerText = title;
         }
-
         function saveTimezoneSettings() {
-            timeMode = tempTimeMode;
-            customTimezone = tempCustomTz;
-            manualOffset = tempManualOffset;
-
-            localStorage.setItem('holo_pro_time_mode', timeMode);
-            localStorage.setItem('holo_pro_custom_tz', customTimezone);
-            localStorage.setItem('holo_pro_manual_tz', manualOffset);
-            
-            updateTopDateDisplay();
-            
-            const now = getAppDate();
-            document.getElementById('custom-date-input').value = getTodayDateStr();
-            document.getElementById('custom-time-input').value = `${String((now.getHours()+1)%24).padStart(2, '0')}:00`;
-            
-            renderTasks();
-            closeTimezoneModal();
+            timeMode = tempTimeMode; customTimezone = tempCustomTz;
+            localStorage.setItem('holo_pro_time_mode', timeMode); localStorage.setItem('holo_pro_custom_tz', customTimezone);
+            updateTopDateDisplay(); const now = getAppDate();
+            document.getElementById('custom-date-input').value = getTodayDateStr(); document.getElementById('custom-time-input').value = `${String((now.getHours()+1)%24).padStart(2, '0')}:00`;
+            checkDailyReset(); renderTasks(); renderDailyTasks(); renderSchedule(); closeTimezoneModal();
         }
 
+        // ================= UI 操作 =================
+        function toggleOptions() {
+            optionsExpanded = !optionsExpanded; const container = document.getElementById('advanced-options'); const btn = document.getElementById('toggle-options-btn');
+            if (optionsExpanded) { container.classList.remove('hidden'); container.classList.add('flex'); btn.innerText = "➖ 收起詳細設定"; } 
+            else { container.classList.add('hidden'); container.classList.remove('flex'); btn.innerText = "➕ 展開詳細設定 (分類 / 時間 / 緊急)"; }
+        }
 
-        // ================= 其他 UI 與操作 =================
         function switchTab(tab) {
-            const viewTodo = document.getElementById('view-todo');
-            const viewSchedule = document.getElementById('view-schedule');
-            const btnTodo = document.getElementById('tab-todo');
-            const btnSchedule = document.getElementById('tab-schedule');
-
-            if (tab === 'todo') {
-                viewTodo.classList.remove('hidden'); viewSchedule.classList.add('hidden');
-                btnTodo.classList.add('active'); btnSchedule.classList.remove('active');
-            } else {
-                viewTodo.classList.add('hidden'); viewSchedule.classList.remove('hidden');
-                btnSchedule.classList.add('active'); btnTodo.classList.remove('active');
-            }
+            ['todo', 'schedule', 'daily'].forEach(t => {
+                document.getElementById(`view-${t}`).classList.add('hidden'); document.getElementById(`tab-${t}`).classList.remove('active');
+            });
+            document.getElementById(`view-${tab}`).classList.remove('hidden'); document.getElementById(`tab-${tab}`).classList.add('active');
+            if (tab === 'schedule') { renderSchedule(); setTimeout(scrollToCurrentTime, 100); }
         }
 
         function selectTimeTag(tag) {
-            if (currentTimeTag === tag) {
-                currentTimeTag = '';
-                document.getElementById(`tag-${tag}`).classList.remove('active');
-                document.getElementById('custom-datetime-container').classList.add('hidden');
-                return;
-            }
-            currentTimeTag = tag;
-            document.querySelectorAll('[id^="tag-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`tag-${tag}`).classList.add('active');
-            
-            const datetimeContainer = document.getElementById('custom-datetime-container');
-            if (tag === 'custom') {
-                datetimeContainer.classList.remove('hidden');
-            } else {
-                datetimeContainer.classList.add('hidden');
-            }
+            if (currentTimeTag === tag) { currentTimeTag = ''; document.getElementById(`tag-${tag}`).classList.remove('active'); document.getElementById('custom-datetime-container').classList.add('hidden'); return; }
+            currentTimeTag = tag; document.querySelectorAll('[id^="tag-"]').forEach(btn => btn.classList.remove('active')); document.getElementById(`tag-${tag}`).classList.add('active');
+            if (tag === 'custom') document.getElementById('custom-datetime-container').classList.remove('hidden'); else document.getElementById('custom-datetime-container').classList.add('hidden');
         }
 
         function setPriority(pri) {
-            if (currentPriority === pri) {
-                currentPriority = '';
-                document.getElementById(`pri-${pri}`).classList.remove('active');
-                return;
-            }
-            currentPriority = pri;
-            document.querySelectorAll('[id^="pri-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`pri-${pri}`).classList.add('active');
+            if (currentPriority === pri) { currentPriority = ''; document.getElementById(`pri-${pri}`).classList.remove('active'); return; }
+            currentPriority = pri; document.querySelectorAll('[id^="pri-"]').forEach(btn => btn.classList.remove('active')); document.getElementById(`pri-${pri}`).classList.add('active');
         }
 
         function setCategory(cat) {
-            if (currentCategory === cat) {
-                currentCategory = '';
-                document.getElementById(`cat-${cat}`).classList.remove('active');
-                return;
-            }
-            currentCategory = cat;
-            document.querySelectorAll('[id^="cat-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`cat-${cat}`).classList.add('active');
+            if (currentCategory === cat) { currentCategory = ''; document.getElementById(`cat-${cat}`).classList.remove('active'); return; }
+            currentCategory = cat; document.querySelectorAll('[id^="cat-"]').forEach(btn => btn.classList.remove('active')); document.getElementById(`cat-${cat}`).classList.add('active');
         }
 
-        function applyFilter(cat) {
-            currentFilter = cat;
-            document.querySelectorAll('[id^="filter-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`filter-${cat}`).classList.add('active');
-            renderTasks();
-        }
-
-        function applyTimeFilter(timeOption) {
-            currentTimeFilter = timeOption;
-            document.querySelectorAll('[id^="timeFilter-"]').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`timeFilter-${timeOption}`).classList.add('active');
-            renderTasks();
-        }
-
-        function applySort(sortOption) {
-            currentSortOrder = sortOption;
-            renderTasks();
-        }
+        function applyFilter(cat) { currentFilter = cat; document.querySelectorAll('[id^="filter-"]').forEach(btn => btn.classList.remove('active')); document.getElementById(`filter-${cat}`).classList.add('active'); renderTasks(); }
+        function applyTimeFilter(timeOption) { currentTimeFilter = timeOption; document.querySelectorAll('[id^="timeFilter-"]').forEach(btn => btn.classList.remove('active')); document.getElementById(`timeFilter-${timeOption}`).classList.add('active'); renderTasks(); }
+        function applySort(sortOption) { currentSortOrder = sortOption; renderTasks(); }
 
         function addTask() {
-            const input = document.getElementById('new-task-input');
-            const text = input.value.trim();
-            
-            if (!text) {
-                input.classList.add('input-error');
-                input.placeholder = "請輸入任務名稱喔！(必填)";
-                setTimeout(() => {
-                    input.classList.remove('input-error');
-                    input.placeholder = "Type your plan here... (必填)";
-                }, 1000);
-                return;
-            }
+            const input = document.getElementById('new-task-input'); const text = input.value.trim();
+            if (!text) { input.classList.add('input-error'); input.placeholder = "請輸入任務名稱喔！(必填)"; setTimeout(() => { input.classList.remove('input-error'); input.placeholder = "Type your plan here... (必填)"; }, 1000); return; }
 
-            let targetDate = "";
-            let targetTime = ""; 
+            let targetDate = ""; let targetTime = ""; 
+            if (currentTimeTag === 'today') targetDate = getTodayDateStr();
+            else if (currentTimeTag === 'custom') { targetDate = document.getElementById('custom-date-input').value; targetTime = document.getElementById('custom-time-input').value; }
 
-            if (currentTimeTag === 'today') {
-                targetDate = getTodayDateStr();
-            } else if (currentTimeTag === 'custom') {
-                targetDate = document.getElementById('custom-date-input').value;
-                targetTime = document.getElementById('custom-time-input').value;
-            }
-
-            const newTask = {
-                id: Date.now().toString(),
-                text: text,
-                completed: false,
-                date: targetDate,
-                time: targetTime,
-                priority: currentPriority,
-                category: currentCategory
-            };
-
-            tasks.push(newTask);
-            saveTasks();
-            renderTasks();
-            
-            resetForm();
+            const newTask = { id: Date.now().toString(), text: text, completed: false, date: targetDate, time: targetTime, priority: currentPriority, category: currentCategory };
+            tasks.push(newTask); saveTasks(); renderTasks(); renderSchedule(); resetForm();
         }
 
         function resetForm() {
-            const input = document.getElementById('new-task-input');
-            input.value = '';
-            input.placeholder = "Type your plan here... (必填)";
-
-            currentPriority = '';
-            currentCategory = '';
-            currentTimeTag = '';
-            document.querySelectorAll('.control-pill').forEach(btn => btn.classList.remove('active'));
-
-            const now = getAppDate();
-            document.getElementById('custom-date-input').value = getTodayDateStr();
-            document.getElementById('custom-time-input').value = `${String((now.getHours()+1)%24).padStart(2, '0')}:00`;
-            
-            document.getElementById('custom-datetime-container').classList.add('hidden');
+            const input = document.getElementById('new-task-input'); input.value = ''; input.placeholder = "Type your plan here... (必填)";
+            currentPriority = ''; currentCategory = ''; currentTimeTag = ''; document.querySelectorAll('.control-pill').forEach(btn => btn.classList.remove('active'));
+            const now = getAppDate(); document.getElementById('custom-date-input').value = getTodayDateStr(); document.getElementById('custom-time-input').value = `${String((now.getHours()+1)%24).padStart(2, '0')}:00`;
+            document.getElementById('custom-datetime-container').classList.add('hidden'); if(optionsExpanded) toggleOptions();
         }
 
-        function toggleTask(id) {
-            const task = tasks.find(t => t.id === id);
-            if (task) { task.completed = !task.completed; saveTasks(); renderTasks(); }
-        }
-
-        // 打開刪除確認視窗
-        function openDeleteModal(id) {
-            taskToDeleteId = id;
-            document.getElementById('delete-modal').classList.remove('hidden');
-        }
-
-        // 關閉刪除確認視窗
-        function closeDeleteModal() {
-            taskToDeleteId = null;
-            document.getElementById('delete-modal').classList.add('hidden');
-        }
-
-        // 確認刪除
-        function confirmDelete() {
-            if (taskToDeleteId) {
-                tasks = tasks.filter(t => t.id !== taskToDeleteId); 
-                saveTasks(); 
-                renderTasks();
-                closeDeleteModal();
-            }
-        }
-
-        function saveTasks() {
-            localStorage.setItem('holo_pro_tasks', JSON.stringify(tasks));
-        }
+        function toggleTask(id) { const task = tasks.find(t => t.id === id); if (task) { task.completed = !task.completed; saveTasks(); renderTasks(); renderSchedule(); } }
+        function saveTasks() { localStorage.setItem('holo_pro_tasks', JSON.stringify(tasks)); }
 
         function renderTasks() {
-            const todayList = document.getElementById('today-task-list');
-            const otherList = document.getElementById('other-task-list');
-            
+            const todayList = document.getElementById('today-task-list'); const otherList = document.getElementById('other-task-list');
             todayList.innerHTML = ''; otherList.innerHTML = '';
 
-            const todayStr = getTodayDateStr();
-            let todayCount = 0; let otherCount = 0;
+            const todayStr = getTodayDateStr(); let todayCount = 0; let otherCount = 0;
+            let totalTasks = tasks.length; let completedTasks = tasks.filter(t => t.completed).length;
+
+            document.getElementById('progress-text').innerText = `${completedTasks}/${totalTasks}`;
+            let progressPercent = totalTasks === 0 ? 0 : (completedTasks / totalTasks) * 100;
+            document.getElementById('progress-bar-fill').style.width = `${progressPercent}%`;
 
             const priWeight = { 'High': 3, 'Middle': 2, 'Low': 1, '': 0 };
             const catEmoji = { '旅行': '✈️', '個人': '👤', '工作': '💼', '家庭': '🏡', '購物': '🛒', '其他': '✨' };
 
             let filteredTasks = tasks;
-            if (currentFilter !== 'All') {
-                filteredTasks = filteredTasks.filter(t => t.category === currentFilter);
-            }
-            if (currentTimeFilter === 'Today') {
-                filteredTasks = filteredTasks.filter(t => t.date === todayStr);
-            }
+            if (currentFilter !== 'All') filteredTasks = filteredTasks.filter(t => t.category === currentFilter);
+            if (currentTimeFilter === 'Today') filteredTasks = filteredTasks.filter(t => t.date === todayStr);
 
             const sortedTasks = [...filteredTasks].sort((a, b) => {
                 if (a.completed !== b.completed) return a.completed ? 1 : -1;
-                
-                const weightA = priWeight[a.priority] || 0;
-                const weightB = priWeight[b.priority] || 0;
-                
-                const dateA = a.date || "9999-99-99";
-                const dateB = b.date || "9999-99-99";
-                const timeA = a.time || "23:59";
-                const timeB = b.time || "23:59";
+                const weightA = priWeight[a.priority] || 0; const weightB = priWeight[b.priority] || 0;
+                const dateA = a.date || "9999-99-99"; const dateB = b.date || "9999-99-99";
+                const timeA = a.time || "23:59"; const timeB = b.time || "23:59";
 
                 if (currentSortOrder === 'Default') {
                     if (weightA !== weightB) return weightB - weightA;
@@ -826,108 +939,264 @@
 
             sortedTasks.forEach(task => {
                 const isActive = !task.completed;
+                let timeHtml = '';
                 
-                let timeStr = '';
                 if (task.date) {
-                    const d = new Date(task.date);
-                    timeStr = (task.date !== todayStr ? formatDateToDDMMYY(d) + ' ' : '') + (task.time || '');
+                    if (task.date === todayStr) {
+                        timeHtml = `
+                            <div class="flex items-center gap-1.5 text-[11px] bg-gray-50 border border-gray-200 px-2 py-1 rounded text-gray-700 font-bold shadow-sm">
+                                <i class="ph-bold ph-alarm text-[16px] text-red-500"></i>
+                                <span class="bg-[var(--holo-blue)] text-black px-1.5 py-0.5 rounded-[4px] text-[10px] font-pixel leading-none shadow-[0_0_3px_var(--holo-blue)]">TODAY</span>
+                                ${task.time ? `<span class="text-black font-kr tracking-wide">${task.time}</span>` : ''}
+                            </div>
+                        `;
+                    } else {
+                        const d = new Date(task.date);
+                        timeHtml = `
+                            <div class="flex items-center gap-1.5 text-[11px] bg-gray-50 border border-gray-200 px-2 py-1 rounded text-gray-700 font-bold shadow-sm">
+                                <i class="ph-bold ph-calendar-blank text-[14px]"></i>
+                                <span class="mt-[1px]">${formatDateToDDMMYY(d)} ${task.time || ''}</span>
+                            </div>
+                        `;
+                    }
                 }
 
                 const emoji = catEmoji[task.category] || '📌';
-                
                 let priLabel = '';
-                if(task.priority === 'High') priLabel = `<span class="text-[var(--pri-high)] font-cyber text-[10px] border border-[var(--pri-high)] bg-[#94A3B8] px-1 rounded mr-1 text-white">HIGH</span>`;
-                if(task.priority === 'Middle') priLabel = `<span class="text-[var(--pri-mid)] font-cyber text-[10px] border border-[var(--pri-mid)] bg-[#94A3B8] px-1 rounded mr-1 text-white">MID</span>`;
-                if(task.priority === 'Low') priLabel = `<span class="text-[var(--pri-low)] font-cyber text-[10px] border border-[var(--pri-low)] bg-[#94A3B8] px-1 rounded mr-1 text-white">LOW</span>`;
+                if(task.priority === 'High') priLabel = `<span class="flex items-center font-cyber text-[10px] border border-[var(--pri-high)] bg-[#94A3B8] px-1.5 py-1 rounded text-white shadow-[0_0_6px_var(--pri-high)]">HIGH</span>`;
+                if(task.priority === 'Middle') priLabel = `<span class="flex items-center font-cyber text-[10px] border border-[var(--pri-mid)] bg-[#94A3B8] px-1.5 py-1 rounded text-white shadow-[0_0_6px_var(--pri-mid)]">MID</span>`;
+                if(task.priority === 'Low') priLabel = `<span class="flex items-center font-cyber text-[10px] border border-[var(--pri-low)] bg-[#94A3B8] px-1.5 py-1 rounded text-white shadow-[0_0_6px_var(--pri-low)]">LOW</span>`;
 
-                let catLabel = '';
-                if(task.category) {
-                    catLabel = `<span class="text-[10px] bg-gray-100 border border-gray-300 px-1.5 py-0.5 rounded text-gray-700 font-kr">${emoji} ${task.category}</span>`;
-                }
+                let catLabel = ''; 
+                if(task.category) catLabel = `<span class="flex items-center gap-1 text-[10px] bg-gray-100 border border-gray-300 px-2 py-1 rounded text-gray-700 font-kr">${emoji} ${task.category}</span>`;
 
-                const taskEl = document.createElement('div');
-                taskEl.className = 'task-card group';
+                const taskEl = document.createElement('div'); 
+                taskEl.className = 'task-card group'; 
                 if(task.priority) taskEl.setAttribute('data-task-pri', task.priority);
                 
                 taskEl.innerHTML = `
-                    <input type="checkbox" class="cyber-checkbox mt-0.5" ${task.completed ? 'checked' : ''} onchange="toggleTask('${task.id}')">
-                    <div class="flex-1 flex flex-col overflow-hidden">
-                        <div class="flex items-center gap-1 mb-1 flex-wrap">
-                            ${priLabel}
-                            ${catLabel}
-                            ${timeStr ? `<span class="text-[12px] text-black font-bold ml-1 px-1">⏰ ${timeStr}</span>` : ''}
+                    <div class="flex items-start gap-3 w-full">
+                        <input type="checkbox" class="cyber-checkbox shrink-0 mt-0.5" ${task.completed ? 'checked' : ''} onchange="toggleTask('${task.id}')">
+                        <div class="flex-1 flex flex-col min-w-0 pt-0.5">
+                            <span class="text-[17px] font-bold leading-snug break-words ${task.completed ? 'task-completed' : 'text-black'}">${task.text}</span>
+                            <div class="flex items-center gap-1.5 mt-2 flex-wrap">
+                                ${priLabel} ${catLabel} ${timeHtml}
+                            </div>
                         </div>
-                        <span class="text-base font-bold leading-snug break-words ${task.completed ? 'task-completed' : 'text-black'}">
-                            ${task.text}
-                        </span>
+                        <button onclick="openDeleteModal('todo', '${task.id}')" class="p-2 text-xl text-gray-400 hover:text-red-500 shrink-0 transition-colors drop-shadow-sm"><i class="ph-bold ph-trash"></i></button>
                     </div>
-                    <button onclick="openDeleteModal('${task.id}')" class="p-2 text-2xl text-gray-400 hover:text-red-500 flex-shrink-0 transition-colors drop-shadow-sm">
-                        <i class="ph-bold ph-trash"></i>
-                    </button>
                 `;
 
-                if (isActive) {
-                    todayList.appendChild(taskEl); todayCount++;
+                if (isActive) { todayList.appendChild(taskEl); todayCount++; } 
+                else { otherList.appendChild(taskEl); otherCount++; }
+            });
+
+            if (todayCount === 0) todayList.innerHTML = '<div class="font-pixel text-[12px] text-gray-400 pl-2">> NO_ACTIVE_MISSIONS_</div>';
+            if (otherCount === 0) otherList.innerHTML = '<div class="font-pixel text-[12px] text-gray-400 pl-2">> ARCHIVE_EMPTY_</div>';
+        }
+
+        // 💡 NEW: 時段 Folder 展開/縮小邏輯
+        function togglePeriod(pid) {
+            if (expandedPeriods.has(pid)) expandedPeriods.delete(pid);
+            else expandedPeriods.add(pid);
+            renderSchedule();
+        }
+
+        // ================= 復古手風琴行程表 (四大時段濃縮版) =================
+        function renderSchedule() {
+            const container = document.getElementById('timeline-container');
+            container.innerHTML = ''; 
+            
+            const todayStr = getTodayDateStr();
+            const todayActiveTasks = tasks.filter(t => t.date === todayStr && !t.completed);
+            
+            const schedHeading = document.getElementById('schedule-task-count');
+            if(schedHeading) {
+                if (todayActiveTasks.length > 0) {
+                    schedHeading.innerHTML = `⚠️ 今日仲有 <span class="text-[var(--neon-pink)] text-lg animate-pulse mx-1">${todayActiveTasks.length}</span> 個任務未完成！`;
+                    schedHeading.classList.remove('text-[var(--holo-blue)]', 'border-[var(--holo-blue)]');
+                    schedHeading.classList.add('text-[var(--neon-pink)]', 'border-[var(--neon-pink)]');
+                    schedHeading.style.boxShadow = '0 0 8px var(--neon-pink)';
                 } else {
-                    otherList.appendChild(taskEl); otherCount++;
+                    schedHeading.innerHTML = `✨ 今日任務全部 Clear！`;
+                    schedHeading.classList.remove('text-[var(--neon-pink)]', 'border-[var(--neon-pink)]');
+                    schedHeading.classList.add('text-[var(--neon-purple)]', 'border-[var(--neon-purple)]');
+                    schedHeading.style.boxShadow = '0 0 8px var(--neon-purple)';
+                }
+            }
+
+            const taskMap = {};
+            todayActiveTasks.forEach(t => {
+                let targetHour = t.time ? t.time.substring(0, 2) + ':00' : '23:00';
+                if (!taskMap[targetHour]) taskMap[targetHour] = [];
+                taskMap[targetHour].push(t);
+            });
+
+            // 💡 智能初次載入：如果有內容或備註，就自動打開嗰個時段 Folder
+            if (isFirstScheduleRender) {
+                schedulePeriods.forEach(p => {
+                    for(let i=p.start; i<=p.end; i++) {
+                        const h = i.toString().padStart(2, '0') + ':00';
+                        if ((schedule[h] && schedule[h].trim() !== '') || taskMap[h]) {
+                            expandedPeriods.add(p.id); break;
+                        }
+                    }
+                });
+                // 預設打開「現在時間」所屬嘅 Folder
+                const currentHour = getAppDate().getHours();
+                const curP = schedulePeriods.find(p => currentHour >= p.start && currentHour <= p.end);
+                if(curP) expandedPeriods.add(curP.id);
+                
+                isFirstScheduleRender = false;
+            }
+
+            // 💡 智能同步：如果有待辦事項同步入嚟，強制自動展開嗰個時段 Folder
+            schedulePeriods.forEach(p => {
+                for(let i=p.start; i<=p.end; i++) {
+                    const h = i.toString().padStart(2, '0') + ':00';
+                    if(taskMap[h] && taskMap[h].length > 0) {
+                        expandedPeriods.add(p.id); break;
+                    }
                 }
             });
 
-            if (todayCount === 0) {
-                todayList.innerHTML = '<div class="font-pixel text-[12px] text-gray-400 pl-2">> NO_ACTIVE_MISSIONS_</div>';
-            }
-            if (otherCount === 0) {
-                otherList.innerHTML = '<div class="font-pixel text-[12px] text-gray-400 pl-2">> ARCHIVE_EMPTY_</div>';
-            }
+            // 渲染四大時段區塊
+            schedulePeriods.forEach(p => {
+                const isOpen = expandedPeriods.has(p.id);
+                
+                // 計算這個時段內有多少任務或筆記，顯示為小 Badge
+                let pCount = 0;
+                for(let i=p.start; i<=p.end; i++) {
+                    const h = i.toString().padStart(2, '0') + ':00';
+                    if(taskMap[h]) pCount += taskMap[h].length;
+                    if(schedule[h] && schedule[h].trim() !== '') pCount += 1;
+                }
+                const badgeHtml = pCount > 0 ? `<span class="bg-black text-[var(--neon-green)] text-[10px] px-2 py-0.5 rounded font-pixel shadow-[2px_2px_0px_#000] ml-2 border border-[var(--neon-green)]">${pCount} 項</span>` : '';
+
+                // 時段 Folder 的 Header
+                const headerEl = document.createElement('div');
+                headerEl.className = `period-header group ${isOpen ? 'open' : ''}`;
+                headerEl.innerHTML = `
+                    <div class="flex items-center">
+                        <span class="text-[18px] drop-shadow-sm">${p.name}</span>
+                        ${badgeHtml}
+                    </div>
+                    <i class="ph-bold ph-caret-${isOpen ? 'up' : 'down'} text-xl group-hover:scale-110 transition-transform"></i>
+                `;
+                headerEl.onclick = () => togglePeriod(p.id);
+                container.appendChild(headerEl);
+
+                // 時段 Folder 的 內容清單
+                if (isOpen) {
+                    const contentEl = document.createElement('div');
+                    contentEl.className = 'period-content-line flex flex-col gap-2 mb-2';
+                    
+                    for (let i = p.start; i <= p.end; i++) {
+                        const hourStr = i.toString().padStart(2, '0') + ':00';
+                        const textValue = schedule[hourStr] || '';
+                        const syncedTasks = taskMap[hourStr] || [];
+                        const isExpanded = textValue.trim().length > 0 || syncedTasks.length > 0 || expandedSlots.has(hourStr);
+
+                        const rowEl = document.createElement('div');
+                        rowEl.className = 'sched-slot w-full';
+                        rowEl.id = `sched-row-${hourStr}`;
+
+                        if (!isExpanded) {
+                            rowEl.innerHTML = `
+                                <div class="flex items-center gap-3 py-1 cursor-pointer group" onclick="expandSlot('${hourStr}')">
+                                    <div class="sched-time-badge sched-badge-empty w-16 text-center group-hover:-translate-y-0.5 transition-transform">${hourStr}</div>
+                                    <div class="flex-1 border-b-[2px] border-dashed border-gray-400 group-hover:border-[var(--neon-pink)] transition-colors"></div>
+                                    <div class="text-gray-400 font-bold group-hover:text-[var(--neon-pink)]">+</div>
+                                </div>
+                            `;
+                        } else {
+                            let syncedHtml = '';
+                            if (syncedTasks.length > 0) {
+                                syncedHtml = '<div class="flex flex-wrap gap-1 mb-2">';
+                                syncedTasks.forEach(st => {
+                                    let emoji = '';
+                                    if(st.category === '旅行') emoji = '✈️ ';
+                                    if(st.category === '購物') emoji = '🛒 ';
+                                    if(st.category === '工作') emoji = '💼 ';
+                                    if(st.category === '家庭') emoji = '🏡 ';
+                                    syncedHtml += `<div class="synced-task-badge" title="來自待辦清單">${emoji}${st.text}</div>`;
+                                });
+                                syncedHtml += '</div>';
+                            }
+
+                            rowEl.innerHTML = `
+                                <div class="flex flex-col gap-2 my-2">
+                                    <div class="flex items-center gap-3">
+                                        <div class="sched-time-badge sched-badge-active w-16 text-center">${hourStr}</div>
+                                        <div class="flex-1 border-b-[3px] border-solid border-[var(--neon-pink)]"></div>
+                                    </div>
+                                    <div class="sched-card ml-2">
+                                        ${syncedHtml}
+                                        <textarea id="sched-input-${hourStr}" class="sched-textarea placeholder-gray-400" placeholder="輸入行程... (清空並點擊外面可收起)" 
+                                           oninput="saveSchedule('${hourStr}', this.value)" 
+                                           onblur="checkCollapse('${hourStr}', this.value)"></textarea>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        contentEl.appendChild(rowEl);
+                        
+                        // 確保元素加載完成後再填入內容
+                        if (isExpanded) { 
+                            setTimeout(() => {
+                                const ta = document.getElementById(`sched-input-${hourStr}`);
+                                if (ta) ta.value = textValue;
+                            }, 0);
+                        }
+                    }
+                    container.appendChild(contentEl);
+                }
+            });
         }
 
-        // ================= 渲染交錯時間軸 =================
-        function renderSchedule() {
-            const container = document.getElementById('timeline-container');
-            container.innerHTML = '<div class="timeline-center-line"></div>';
+        function expandSlot(hourStr) {
+            expandedSlots.add(hourStr); renderSchedule();
+            setTimeout(() => { const input = document.getElementById(`sched-input-${hourStr}`); if (input) input.focus(); }, 50);
+        }
 
-            for (let i = 6; i <= 24; i++) {
-                const hourNum = i === 24 ? 0 : i;
-                const hourStr = hourNum.toString().padStart(2, '0') + ':00';
-                
-                const textValue = schedule[hourStr] || '';
-                const isTopCard = (i % 2 === 0);
+        function checkCollapse(hourStr, val) {
+            const todayStr = getTodayDateStr();
+            const syncedExists = tasks.some(t => t.date === todayStr && !t.completed && (t.time ? t.time.substring(0,2)+':00' === hourStr : hourStr === '23:00'));
 
-                const slotEl = document.createElement('div');
-                slotEl.className = 'time-node-container';
-
-                const cardHtml = `
-                    <div class="timeline-card ${isTopCard ? 'top-[30px]' : 'bottom-[30px]'}">
-                        <div class="text-sm font-cyber text-[var(--neon-navy)] mb-1">${hourStr}</div>
-                        <textarea class="w-full resize-none bg-transparent outline-none text-sm text-white placeholder:text-[rgba(255,255,255,0.4)] h-[60px] font-bold" 
-                           placeholder="Type plan..." onchange="saveSchedule('${hourStr}', this.value)" oninput="saveSchedule('${hourStr}', this.value)">${textValue}</textarea>
-                    </div>
-                `;
-
-                const lineHtml = `<div class="connection-line ${isTopCard ? 'top-[135px] h-[40px]' : 'bottom-[135px] h-[40px]'}"></div>`;
-
-                slotEl.innerHTML = `
-                    ${isTopCard ? cardHtml : ''}
-                    ${isTopCard ? lineHtml : ''}
-                    <div class="node-circle">${hourNum}</div>
-                    ${!isTopCard ? lineHtml : ''}
-                    ${!isTopCard ? cardHtml : ''}
-                `;
-                
-                container.appendChild(slotEl);
+            if (val.trim() === '' && !syncedExists) { 
+                expandedSlots.delete(hourStr); saveSchedule(hourStr, ''); renderSchedule(); 
             }
         }
 
         function saveSchedule(time, text) {
-            schedule[time] = text;
-            localStorage.setItem('holo_pro_schedule', JSON.stringify(schedule));
+            schedule[time] = text; localStorage.setItem('holo_pro_schedule', JSON.stringify(schedule));
+        }
+
+        function scrollToCurrentTime() {
+            const currentHour = getAppDate().getHours();
+            const hourStr = currentHour.toString().padStart(2, '0') + ':00';
+            
+            // 💡 點擊定位時，自動打開所屬嘅 4 大時段 Folder
+            const curP = schedulePeriods.find(p => currentHour >= p.start && currentHour <= p.end);
+            if(curP) expandedPeriods.add(curP.id);
+            
+            expandedSlots.add(hourStr); 
+            renderSchedule();
+            
+            setTimeout(() => {
+                const row = document.getElementById(`sched-row-${hourStr}`);
+                const scrollArea = document.getElementById('schedule-scroll-area');
+                if (row && scrollArea) {
+                    const scrollTop = row.offsetTop - (scrollArea.clientHeight / 2) + (row.clientHeight / 2);
+                    scrollArea.scrollTo({ top: Math.max(0, scrollTop), behavior: 'smooth' });
+                    const input = document.getElementById(`sched-input-${hourStr}`);
+                    if (input) input.focus();
+                }
+            }, 150);
         }
     </script>
 </body>
 </html>
-
-
-
 
 
 ```
