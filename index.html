@@ -27,8 +27,8 @@
             --neon-green: #39FF14;
             
             --pri-high: #FF3366;
-            --pri-mid: #FF8C00; /* 水果橙色 */
-            --pri-low: #1D4ED8; /* 海軍藍色 */
+            --pri-mid: #FF8C00; 
+            --pri-low: #1D4ED8; 
         }
 
         body {
@@ -105,7 +105,6 @@
         .input-error { border-color: #FF0000 !important; box-shadow: 0 0 15px #FF0000 !important; animation: shake 0.4s; }
         @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
 
-        /* BLACKPINK 泡泡按鈕 */
         .btn-pixel {
             background-color: #FF69B4; color: #000000; border: 4px solid #000000; border-radius: 20px; 
             font-family: 'Titan One', cursive; font-weight: 400; padding: 14px 16px; font-size: 1.3rem;
@@ -119,7 +118,6 @@
         }
         .btn-pixel:active { transform: translate(4px, 4px); box-shadow: inset -4px -4px 0px rgba(0, 0, 0, 0.15), inset 4px 4px 0px rgba(255, 255, 255, 0.4), 0px 0px 0px #000000; }
 
-        /* 輔助按鈕 */
         .btn-modal {
             background: #94A3B8; color: #FFFFFF; border: 2px solid var(--holo-blue); border-radius: 8px; font-weight: 900; padding: 10px;
             cursor: pointer; transition: all 0.2s; text-transform: uppercase; box-shadow: 0 0 10px var(--holo-blue);
@@ -138,7 +136,6 @@
         .filter-btn { background: #FFFFFF; color: #666; font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 20px; transition: all 0.2s; border: 1px solid #CCC; }
         .filter-btn.active { background: #FFFFFF; border-color: var(--neon-purple); box-shadow: 0 0 8px var(--neon-purple); }
 
-        /* 分頁按鈕 (Glassmorphism Pill 帶邊框) */
         .tab-btn { 
             background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); 
             border: 2px solid rgba(255,255,255,0.15); border-radius: 12px; 
@@ -153,8 +150,8 @@
             text-shadow: 0 0 8px var(--holo-blue); 
         }
 
-        @keyframes pulse-mic { 0%, 100% { opacity: 1; transform: scale(1) translateY(-50%); } 50% { opacity: 0.5; transform: scale(1.2) translateY(-50%); } }
-        .mic-recording { color: #FF1493 !important; animation: pulse-mic 1s infinite; text-shadow: 0 0 10px #FF1493; }
+        @keyframes pulse-mic { 0%, 100% { opacity: 1; transform: scale(1) translateY(-50%); } 50% { opacity: 0.5; transform: scale(1.3) translateY(-50%); color: var(--neon-green); } }
+        .mic-recording { color: #FF1493 !important; animation: pulse-mic 1s infinite; text-shadow: 0 0 15px #FF1493; }
 
         /* ================= 任務卡片 ================= */
         .task-card {
@@ -174,7 +171,7 @@
         .cyber-checkbox:checked::after { content: '✔'; position: absolute; font-size: 14px; color: #FFFFFF; font-weight: 900; top: 50%; left: 50%; transform: translate(-50%, -45%); }
         .task-completed { text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--neon-pink); color: #999; }
 
-        /* ================= 全新：四大時段群組 (Period Accordion) ================= */
+        /* ================= 四大時段群組 (Period Accordion) ================= */
         .period-header {
             background: #FFFFFF; border: 3px solid #000; border-radius: 12px;
             padding: 12px 16px; font-family: 'Black Han Sans', sans-serif; color: #000;
@@ -183,7 +180,7 @@
         }
         .period-header:hover { border-color: var(--holo-blue); }
         .period-header:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #000; }
-        .period-header.open { background: var(--holo-blue); box-shadow: 4px 4px 0px var(--neon-pink); border-color: var(--neon-pink); }
+        .period-header.open { background: var(--holo-blue); box-shadow: 4px 4px 0px var(--neon-pink); border-color: var(--neon-pink); color: #000; }
         .period-content-line { border-left: 3px dashed #000; margin-left: 20px; padding-left: 16px; padding-top: 8px; padding-bottom: 8px; }
 
         /* ================= 復古手風琴行程表 ================= */
@@ -205,30 +202,25 @@
             width: 100%; resize: none; background: transparent; border: none; 
             outline: none; color: #000; font-weight: 700; font-size: 1rem; line-height: 1.4;
         }
-
         .synced-task-badge {
             display: inline-block; background: #FFFFFF; color: var(--neon-pink); font-size: 0.75rem; font-weight: bold;
             padding: 4px 8px; border-radius: 6px; border: 2px solid var(--neon-pink); margin-bottom: 8px; margin-right: 4px;
             box-shadow: 2px 2px 0px var(--neon-pink); font-family: 'Noto Sans TC', sans-serif;
         }
 
-        /* ================= 每日任務 (海軍藍旗仔設計) ================= */
+        /* ================= 每日任務 ================= */
         .daily-cat-card {
             background: rgba(255, 255, 255, 0.9); border: 2px solid var(--holo-blue); 
             border-radius: 16px; padding: 16px; box-shadow: 0 4px 15px rgba(133,227,255,0.2); 
             margin-bottom: 20px; color: #000;
         }
-        
         .quest-flag-btn {
             font-size: 26px; color: #CCC; cursor: pointer; 
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex; justify-content: center; align-items: center;
         }
         .quest-flag-btn:hover { color: var(--holo-blue); transform: scale(1.15) rotate(-5deg); }
-        .quest-flag-btn.checked {
-            color: var(--neon-navy); filter: drop-shadow(0 0 6px var(--neon-navy)); transform: scale(1.1);
-        }
-        
+        .quest-flag-btn.checked { color: var(--neon-navy); filter: drop-shadow(0 0 6px var(--neon-navy)); transform: scale(1.1); }
         .quest-item { transition: transform 0.2s; }
         .quest-title-text.completed {
             color: #999; text-decoration: line-through; text-decoration-color: var(--neon-pink); text-decoration-thickness: 2px;
@@ -238,8 +230,8 @@
 </head>
 <body class="min-h-screen relative font-sans">
 
-    <!-- Toast Notification (取代 alert) -->
-    <div id="toast-msg" class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-[var(--holo-blue)] text-black px-6 py-2 rounded-full font-bold shadow-[0_0_15px_var(--holo-blue)] z-[100] transition-opacity duration-300 opacity-0 pointer-events-none">
+    <!-- Toast Notification -->
+    <div id="toast-msg" class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-[var(--holo-blue)] text-black px-6 py-2 rounded-full font-bold shadow-[0_0_15px_var(--holo-blue)] z-[100] transition-opacity duration-300 opacity-0 pointer-events-none text-sm text-center w-11/12 max-w-xs border-2 border-black">
         提示訊息
     </div>
 
@@ -251,6 +243,27 @@
         <div class="text-sticker text-black rotate-[-8deg] font-pixel text-lg" style="top: 85%; right: 10%;">2000 baby</div>
         <div class="y2k-sticker text-5xl rotate-[15deg]" style="top: 6%; right: 12%;">🦋</div>
         <div class="y2k-sticker text-4xl rotate-[-20deg]" style="top: 45%; left: 2%;">🌼</div>
+    </div>
+
+    <!-- ================= 🌟 語音確認 Modal ================= -->
+    <div id="voice-confirm-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex justify-center items-center px-4 backdrop-blur-sm">
+        <div class="y2k-window w-full max-w-xs border-2 border-[var(--holo-blue)] shadow-[0_0_20px_var(--holo-blue)]">
+            <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-[linear-gradient(90deg,var(--holo-blue),var(--neon-purple))]">
+                <span><i class="ph-fill ph-microphone-stage mr-1"></i> VOICE_SYSTEM</span>
+                <button onclick="document.getElementById('voice-confirm-modal').classList.add('hidden')" class="text-white hover:text-black">✖</button>
+            </div>
+            <div class="p-5 flex flex-col gap-3 bg-white text-center">
+                <i class="ph-fill ph-check-circle text-5xl text-[var(--holo-blue)] mx-auto drop-shadow-sm"></i>
+                <p class="font-kr text-black text-xl">語音解析成功！</p>
+                <div class="text-sm text-gray-700 bg-gray-100 p-3 rounded-lg border border-gray-300">
+                    "<span id="voice-original-text" class="font-bold text-black"></span>"
+                </div>
+                <p class="text-xs text-gray-500 font-bold mt-1">系統已為您智能分類<br>請核對無誤後儲存！</p>
+                <button onclick="applyVoiceCommand()" class="btn-pixel !text-sm !p-3 mt-2 !bg-[var(--holo-blue)] !border-black shadow-[4px_4px_0_#000]">
+                    好的，去核對表單
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- ================= 系統 Modal ================= -->
@@ -272,7 +285,7 @@
         </div>
     </div>
 
-    <!-- 🌟 通用刪除警告視窗 (取代 confirm) -->
+    <!-- 🌟 通用刪除警告視窗 -->
     <div id="delete-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex justify-center items-center px-4 backdrop-blur-sm">
         <div class="y2k-window w-full max-w-xs border-2 border-red-500 shadow-[0_0_20px_red]">
             <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-red-500 text-white">
@@ -511,8 +524,10 @@
                         >> 系統讀取中...
                     </div>
                     
-                    <p class="font-pixel text-gray-600 text-[12px] tracking-widest mb-4">>> 點擊空白處新增行程_</p>
-                    <div id="timeline-container" class="flex flex-col gap-2 pb-10"></div>
+                    <p class="font-pixel text-gray-600 text-[12px] tracking-widest mb-4">>> 點擊區塊展開並新增行程_</p>
+                    
+                    <!-- 四大時段容器 -->
+                    <div id="timeline-container" class="flex flex-col pb-10"></div>
                 </div>
             </div>
         </div>
@@ -582,8 +597,6 @@
         ];
         
         let dailyData = JSON.parse(localStorage.getItem('holo_pro_daily')) || defaultDaily;
-        
-        // 自動補齊舊用戶可能沒有的「韓文學習」分類
         if (!dailyData.find(cat => cat.id === 'cat-korean')) {
             dailyData.push(defaultDaily.find(cat => cat.id === 'cat-korean'));
             localStorage.setItem('holo_pro_daily', JSON.stringify(dailyData));
@@ -603,7 +616,6 @@
         let deleteType = ''; let targetId1 = null; let targetId2 = null;
         let expandedSlots = new Set();
 
-        // 💡 NEW: 記錄 4 大時段的設定與展開狀態
         const schedulePeriods = [
             { id: 'p1', name: '🌃 凌晨 (00:00 - 05:59)', start: 0, end: 5 },
             { id: 'p2', name: '🌅 上午 (06:00 - 11:59)', start: 6, end: 11 },
@@ -785,16 +797,31 @@
 
         // ================= 語音助理 =================
         let recognition;
+        let tempVoiceData = {};
+
         function initSpeech() {
             if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
                 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
                 recognition = new SpeechRecognition(); recognition.lang = 'yue-Hant-HK'; recognition.interimResults = false; recognition.maxAlternatives = 1;
+                
                 recognition.onstart = function() { document.getElementById('mic-btn').classList.add('mic-recording'); };
                 recognition.onend = function() { document.getElementById('mic-btn').classList.remove('mic-recording'); };
+                
+                // 💡 在此處攔截被平台/瀏覽器封鎖麥克風的錯誤
+                recognition.onerror = function(event) {
+                    document.getElementById('mic-btn').classList.remove('mic-recording');
+                    if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+                        showToast("⚠️ 預覽環境不支援錄音！請下載或放上伺服器測試。");
+                    } else if (event.error !== 'no-speech') {
+                        showToast("語音錯誤: " + event.error);
+                    }
+                };
+                
                 recognition.onresult = function(event) { processSpeechCommand(event.results[0][0].transcript); };
             } else { showToast("您的裝置不支援語音輸入功能！"); }
         }
         function startVoiceInput() { if (!recognition) initSpeech(); if (recognition) { resetForm(); recognition.start(); } }
+        
         function processSpeechCommand(transcript) {
             let pText = transcript; let pPri = ''; let pCat = ''; let pTimeTag = ''; let pDate = ''; const now = getAppDate();
             if (/緊急|好趕|好急|high|最急/i.test(pText)) pPri = 'High'; else if (/中等|普通|一般|mid/i.test(pText)) pPri = 'Middle'; else if (/不急|慢慢|low|得閒先/i.test(pText)) pPri = 'Low';
@@ -812,10 +839,22 @@
                 }
             }
             pText = pText.replace(/幫我(加|記低|新增)?|加一個|記低/g, '').trim(); pText = pText.replace(/^[，。、！？,\.\s]+|[，。、！？,\.\s]+$/g, '');
-            document.getElementById('new-task-input').value = pText;
-            if(pPri) setPriority(pPri); if(pCat) setCategory(pCat);
-            if(pTimeTag) { selectTimeTag(pTimeTag); if(pTimeTag === 'custom' && pDate) document.getElementById('custom-date-input').value = pDate; }
+            
+            tempVoiceData = { text: pText, pri: pPri, cat: pCat, timeTag: pTimeTag, date: pDate };
+            document.getElementById('voice-original-text').innerText = transcript;
+            document.getElementById('voice-confirm-modal').classList.remove('hidden');
+        }
+
+        function applyVoiceCommand() {
+            document.getElementById('new-task-input').value = tempVoiceData.text;
+            if(tempVoiceData.pri) setPriority(tempVoiceData.pri); 
+            if(tempVoiceData.cat) setCategory(tempVoiceData.cat);
+            if(tempVoiceData.timeTag) { 
+                selectTimeTag(tempVoiceData.timeTag); 
+                if(tempVoiceData.timeTag === 'custom' && tempVoiceData.date) document.getElementById('custom-date-input').value = tempVoiceData.date; 
+            }
             if(!optionsExpanded) toggleOptions();
+            document.getElementById('voice-confirm-modal').classList.add('hidden');
         }
 
         // ================= 時區 Modal =================
@@ -900,7 +939,6 @@
         }
 
         function toggleTask(id) { const task = tasks.find(t => t.id === id); if (task) { task.completed = !task.completed; saveTasks(); renderTasks(); renderSchedule(); } }
-        function saveTasks() { localStorage.setItem('holo_pro_tasks', JSON.stringify(tasks)); }
 
         function renderTasks() {
             const todayList = document.getElementById('today-task-list'); const otherList = document.getElementById('other-task-list');
@@ -995,14 +1033,12 @@
             if (otherCount === 0) otherList.innerHTML = '<div class="font-pixel text-[12px] text-gray-400 pl-2">> ARCHIVE_EMPTY_</div>';
         }
 
-        // 💡 NEW: 時段 Folder 展開/縮小邏輯
         function togglePeriod(pid) {
             if (expandedPeriods.has(pid)) expandedPeriods.delete(pid);
             else expandedPeriods.add(pid);
             renderSchedule();
         }
 
-        // ================= 復古手風琴行程表 (四大時段濃縮版) =================
         function renderSchedule() {
             const container = document.getElementById('timeline-container');
             container.innerHTML = ''; 
@@ -1032,7 +1068,6 @@
                 taskMap[targetHour].push(t);
             });
 
-            // 💡 智能初次載入：如果有內容或備註，就自動打開嗰個時段 Folder
             if (isFirstScheduleRender) {
                 schedulePeriods.forEach(p => {
                     for(let i=p.start; i<=p.end; i++) {
@@ -1042,29 +1077,22 @@
                         }
                     }
                 });
-                // 預設打開「現在時間」所屬嘅 Folder
                 const currentHour = getAppDate().getHours();
                 const curP = schedulePeriods.find(p => currentHour >= p.start && currentHour <= p.end);
                 if(curP) expandedPeriods.add(curP.id);
-                
                 isFirstScheduleRender = false;
             }
 
-            // 💡 智能同步：如果有待辦事項同步入嚟，強制自動展開嗰個時段 Folder
             schedulePeriods.forEach(p => {
                 for(let i=p.start; i<=p.end; i++) {
                     const h = i.toString().padStart(2, '0') + ':00';
-                    if(taskMap[h] && taskMap[h].length > 0) {
-                        expandedPeriods.add(p.id); break;
-                    }
+                    if(taskMap[h] && taskMap[h].length > 0) { expandedPeriods.add(p.id); break; }
                 }
             });
 
-            // 渲染四大時段區塊
             schedulePeriods.forEach(p => {
                 const isOpen = expandedPeriods.has(p.id);
                 
-                // 計算這個時段內有多少任務或筆記，顯示為小 Badge
                 let pCount = 0;
                 for(let i=p.start; i<=p.end; i++) {
                     const h = i.toString().padStart(2, '0') + ':00';
@@ -1073,7 +1101,6 @@
                 }
                 const badgeHtml = pCount > 0 ? `<span class="bg-black text-[var(--neon-green)] text-[10px] px-2 py-0.5 rounded font-pixel shadow-[2px_2px_0px_#000] ml-2 border border-[var(--neon-green)]">${pCount} 項</span>` : '';
 
-                // 時段 Folder 的 Header
                 const headerEl = document.createElement('div');
                 headerEl.className = `period-header group ${isOpen ? 'open' : ''}`;
                 headerEl.innerHTML = `
@@ -1086,7 +1113,6 @@
                 headerEl.onclick = () => togglePeriod(p.id);
                 container.appendChild(headerEl);
 
-                // 時段 Folder 的 內容清單
                 if (isOpen) {
                     const contentEl = document.createElement('div');
                     contentEl.className = 'period-content-line flex flex-col gap-2 mb-2';
@@ -1141,7 +1167,6 @@
                         }
                         contentEl.appendChild(rowEl);
                         
-                        // 確保元素加載完成後再填入內容
                         if (isExpanded) { 
                             setTimeout(() => {
                                 const ta = document.getElementById(`sched-input-${hourStr}`);
@@ -1176,7 +1201,6 @@
             const currentHour = getAppDate().getHours();
             const hourStr = currentHour.toString().padStart(2, '0') + ':00';
             
-            // 💡 點擊定位時，自動打開所屬嘅 4 大時段 Folder
             const curP = schedulePeriods.find(p => currentHour >= p.start && currentHour <= p.end);
             if(curP) expandedPeriods.add(curP.id);
             
