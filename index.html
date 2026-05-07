@@ -27,8 +27,8 @@
             --neon-green: #39FF14;
             
             --pri-high: #FF3366;
-            --pri-mid: #FF8C00; 
-            --pri-low: #1D4ED8; 
+            --pri-mid: #FF8C00; /* 水果橙色 */
+            --pri-low: #1D4ED8; /* 海軍藍色 */
         }
 
         body {
@@ -105,6 +105,7 @@
         .input-error { border-color: #FF0000 !important; box-shadow: 0 0 15px #FF0000 !important; animation: shake 0.4s; }
         @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
 
+        /* BLACKPINK 泡泡按鈕 */
         .btn-pixel {
             background-color: #FF69B4; color: #000000; border: 4px solid #000000; border-radius: 20px; 
             font-family: 'Titan One', cursive; font-weight: 400; padding: 14px 16px; font-size: 1.3rem;
@@ -118,6 +119,7 @@
         }
         .btn-pixel:active { transform: translate(4px, 4px); box-shadow: inset -4px -4px 0px rgba(0, 0, 0, 0.15), inset 4px 4px 0px rgba(255, 255, 255, 0.4), 0px 0px 0px #000000; }
 
+        /* 輔助按鈕 */
         .btn-modal {
             background: #94A3B8; color: #FFFFFF; border: 2px solid var(--holo-blue); border-radius: 8px; font-weight: 900; padding: 10px;
             cursor: pointer; transition: all 0.2s; text-transform: uppercase; box-shadow: 0 0 10px var(--holo-blue);
@@ -136,6 +138,7 @@
         .filter-btn { background: #FFFFFF; color: #666; font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 20px; transition: all 0.2s; border: 1px solid #CCC; }
         .filter-btn.active { background: #FFFFFF; border-color: var(--neon-purple); box-shadow: 0 0 8px var(--neon-purple); }
 
+        /* 分頁按鈕 */
         .tab-btn { 
             background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); 
             border: 2px solid rgba(255,255,255,0.15); border-radius: 12px; 
@@ -171,29 +174,29 @@
         .cyber-checkbox:checked::after { content: '✔'; position: absolute; font-size: 14px; color: #FFFFFF; font-weight: 900; top: 50%; left: 50%; transform: translate(-50%, -45%); }
         .task-completed { text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--neon-pink); color: #999; }
 
-        /* ================= 四大時段群組 (Period Accordion) ================= */
+        /* ================= 四大時段群組 ================= */
         .period-header {
-            background: #FFFFFF; border: 3px solid #000; border-radius: 12px;
-            padding: 12px 16px; font-family: 'Black Han Sans', sans-serif; color: #000;
-            cursor: pointer; box-shadow: 4px 4px 0px #000; transition: all 0.2s;
-            display: flex; justify-content: space-between; align-items: center; margin-top: 10px;
+            background: #1A1A2E; border: 2px solid var(--holo-blue); border-radius: 12px;
+            padding: 12px 16px; font-family: 'Black Han Sans', sans-serif; color: #FFF;
+            cursor: pointer; box-shadow: 4px 4px 0px var(--neon-purple); transition: all 0.2s;
+            display: flex; justify-content: space-between; align-items: center; margin-top: 12px;
         }
-        .period-header:hover { border-color: var(--holo-blue); }
-        .period-header:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #000; }
+        .period-header:hover { border-color: var(--neon-pink); }
+        .period-header:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--neon-purple); }
         .period-header.open { background: var(--holo-blue); box-shadow: 4px 4px 0px var(--neon-pink); border-color: var(--neon-pink); color: #000; }
-        .period-content-line { border-left: 3px dashed #000; margin-left: 20px; padding-left: 16px; padding-top: 8px; padding-bottom: 8px; }
+        .period-content-line { border-left: 3px dashed var(--holo-blue); margin-left: 20px; padding-left: 16px; padding-top: 12px; padding-bottom: 8px; }
 
         /* ================= 復古手風琴行程表 ================= */
         .sched-slot { transition: all 0.3s ease; }
         .sched-time-badge {
-            font-family: 'VT323', monospace; border: 2px solid #000; border-radius: 6px; 
-            padding: 2px 8px; font-size: 1.2rem; box-shadow: 2px 2px 0px #000; z-index: 2;
+            font-family: 'VT323', monospace; border: 2px solid var(--holo-blue); border-radius: 6px; 
+            padding: 2px 8px; font-size: 1.2rem; box-shadow: 2px 2px 0px var(--holo-blue); z-index: 2;
         }
-        .sched-badge-empty { background: var(--holo-blue); color: #000; }
-        .sched-badge-active { background: var(--neon-pink); color: #FFF; }
+        .sched-badge-empty { background: #000; color: var(--holo-blue); }
+        .sched-badge-active { background: var(--neon-pink); color: #FFF; border-color: var(--neon-pink); box-shadow: 0 0 8px var(--neon-pink); }
         
         .sched-card {
-            background: #FFFFFF; border: 3px solid var(--holo-blue); border-radius: 12px; padding: 12px;
+            background: rgba(255, 255, 255, 0.95); border: 3px solid var(--holo-blue); border-radius: 12px; padding: 12px;
             box-shadow: 4px 4px 0px var(--holo-blue); width: 100%; transition: all 0.2s; position: relative;
         }
         .sched-card:focus-within { border-color: var(--neon-pink); box-shadow: 4px 4px 0px var(--neon-pink); }
@@ -214,6 +217,7 @@
             border-radius: 16px; padding: 16px; box-shadow: 0 4px 15px rgba(133,227,255,0.2); 
             margin-bottom: 20px; color: #000;
         }
+        
         .quest-flag-btn {
             font-size: 26px; color: #CCC; cursor: pointer; 
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -245,22 +249,26 @@
         <div class="y2k-sticker text-4xl rotate-[-20deg]" style="top: 45%; left: 2%;">🌼</div>
     </div>
 
-    <!-- ================= 🌟 語音確認 Modal ================= -->
+    <!-- ================= 🌟 語音/魔法解析確認 Modal ================= -->
     <div id="voice-confirm-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex justify-center items-center px-4 backdrop-blur-sm">
         <div class="y2k-window w-full max-w-xs border-2 border-[var(--holo-blue)] shadow-[0_0_20px_var(--holo-blue)]">
             <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-[linear-gradient(90deg,var(--holo-blue),var(--neon-purple))]">
-                <span><i class="ph-fill ph-microphone-stage mr-1"></i> VOICE_SYSTEM</span>
+                <span><i class="ph-fill ph-magic-wand mr-1"></i> AI_SYSTEM</span>
                 <button onclick="document.getElementById('voice-confirm-modal').classList.add('hidden')" class="text-white hover:text-black">✖</button>
             </div>
             <div class="p-5 flex flex-col gap-3 bg-white text-center">
                 <i class="ph-fill ph-check-circle text-5xl text-[var(--holo-blue)] mx-auto drop-shadow-sm"></i>
-                <p class="font-kr text-black text-xl">語音解析成功！</p>
-                <div class="text-sm text-gray-700 bg-gray-100 p-3 rounded-lg border border-gray-300">
-                    "<span id="voice-original-text" class="font-bold text-black"></span>"
+                <p class="font-kr text-black text-xl">智能解析成功！</p>
+                <div class="text-sm text-gray-700 bg-gray-100 p-3 rounded-lg border border-gray-300 break-words text-left">
+                    <p class="text-xs text-gray-500 mb-1">🗣️ 您輸入：<br><span id="voice-original-text" class="italic text-gray-600"></span></p>
+                    <hr class="my-2 border-gray-300">
+                    <p class="text-xs text-[var(--neon-purple)] font-bold mb-1">🎯 系統已為您分類為：</p>
+                    <p class="text-lg font-bold text-black mb-2"><span id="voice-parsed-text"></span></p>
+                    <div id="voice-parsed-tags" class="flex flex-wrap gap-1.5"></div>
                 </div>
-                <p class="text-xs text-gray-500 font-bold mt-1">系統已為您智能分類<br>請核對無誤後儲存！</p>
+                <p class="text-[10px] text-gray-500 font-bold mt-1">按下確認後，將自動加入任務清單！</p>
                 <button onclick="applyVoiceCommand()" class="btn-pixel !text-sm !p-3 mt-2 !bg-[var(--holo-blue)] !border-black shadow-[4px_4px_0_#000]">
-                    好的，去核對表單
+                    ✨ 確定並加入任務
                 </button>
             </div>
         </div>
@@ -285,7 +293,6 @@
         </div>
     </div>
 
-    <!-- 🌟 通用刪除警告視窗 -->
     <div id="delete-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex justify-center items-center px-4 backdrop-blur-sm">
         <div class="y2k-window w-full max-w-xs border-2 border-red-500 shadow-[0_0_20px_red]">
             <div class="y2k-header font-cyber text-[12px] tracking-widest !bg-red-500 text-white">
@@ -400,7 +407,10 @@
                 <div class="p-5 flex flex-col">
                     <div class="relative w-full">
                         <input type="text" id="new-task-input" class="input-black-neon text-lg placeholder-gray-200 pr-12" placeholder="Type your plan here... (必填)">
-                        <button id="mic-btn" onclick="startVoiceInput()" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-2xl text-[var(--holo-blue)] hover:scale-110 transition-transform drop-shadow-[0_0_5px_var(--holo-blue)]" title="用語音輸入"><i class="ph-fill ph-microphone"></i></button>
+                        <!-- 💡 雙模智能按鈕 -->
+                        <button id="mic-btn" onclick="handleSmartInput()" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-2xl text-[var(--holo-blue)] hover:scale-110 transition-colors drop-shadow-[0_0_5px_var(--holo-blue)]" title="用語音輸入">
+                            <i class="ph-fill ph-microphone"></i>
+                        </button>
                     </div>
                     
                     <div id="advanced-options" class="hidden bg-white/70 border border-gray-300 rounded-lg p-3 flex-col gap-4 shadow-inner mt-4">
@@ -658,7 +668,7 @@
         function showToast(msg) {
             const toast = document.getElementById('toast-msg');
             toast.innerText = msg; toast.classList.remove('opacity-0');
-            setTimeout(() => { toast.classList.add('opacity-0'); }, 3000);
+            setTimeout(() => { toast.classList.add('opacity-0'); }, 4000);
         }
 
         function updateTopDateDisplay() { document.getElementById('current-date').innerText = formatDateToDDMMYY(getAppDate()); }
@@ -795,9 +805,36 @@
             }; reader.readAsText(file);
         }
 
-        // ================= 語音助理 =================
+        // ================= 💡 雙模智能輸入 =================
         let recognition;
         let tempVoiceData = {};
+
+        document.getElementById('new-task-input').addEventListener('input', function(e) {
+            const btn = document.getElementById('mic-btn');
+            const icon = btn.querySelector('i');
+            if (e.target.value.trim().length > 0) {
+                icon.className = 'ph-fill ph-magic-wand';
+                btn.classList.add('text-[var(--neon-pink)]');
+                btn.classList.remove('text-[var(--holo-blue)]');
+                btn.title = "✨ 點擊進行智能解析分類";
+            } else {
+                icon.className = 'ph-fill ph-microphone';
+                btn.classList.remove('text-[var(--neon-pink)]');
+                btn.classList.add('text-[var(--holo-blue)]');
+                btn.title = "用語音輸入";
+            }
+        });
+
+        function handleSmartInput() {
+            const input = document.getElementById('new-task-input');
+            const text = input.value.trim();
+            if (text.length > 0) {
+                processSpeechCommand(text); 
+            } else {
+                if (!recognition) initSpeech();
+                if (recognition) { resetForm(); recognition.start(); }
+            }
+        }
 
         function initSpeech() {
             if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
@@ -807,54 +844,158 @@
                 recognition.onstart = function() { document.getElementById('mic-btn').classList.add('mic-recording'); };
                 recognition.onend = function() { document.getElementById('mic-btn').classList.remove('mic-recording'); };
                 
-                // 💡 在此處攔截被平台/瀏覽器封鎖麥克風的錯誤
                 recognition.onerror = function(event) {
                     document.getElementById('mic-btn').classList.remove('mic-recording');
                     if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
-                        showToast("⚠️ 預覽環境不支援錄音！請下載或放上伺服器測試。");
+                        showToast("⚠️ iOS 限制網頁錄音。請點擊輸入框，使用鍵盤上的「🎤聽寫」輸入，然後按右邊的 ✨魔法棒進行解析！");
                     } else if (event.error !== 'no-speech') {
                         showToast("語音錯誤: " + event.error);
                     }
                 };
-                
                 recognition.onresult = function(event) { processSpeechCommand(event.results[0][0].transcript); };
             } else { showToast("您的裝置不支援語音輸入功能！"); }
         }
-        function startVoiceInput() { if (!recognition) initSpeech(); if (recognition) { resetForm(); recognition.start(); } }
         
         function processSpeechCommand(transcript) {
-            let pText = transcript; let pPri = ''; let pCat = ''; let pTimeTag = ''; let pDate = ''; const now = getAppDate();
-            if (/緊急|好趕|好急|high|最急/i.test(pText)) pPri = 'High'; else if (/中等|普通|一般|mid/i.test(pText)) pPri = 'Middle'; else if (/不急|慢慢|low|得閒先/i.test(pText)) pPri = 'Low';
-            pText = pText.replace(/(緊急|好趕|好急|high|最急|中等|普通|一般|mid|不急|慢慢|low|得閒先)/ig, '');
-            if (/旅行|機票|酒店|飛機/i.test(pText)) pCat = '旅行'; else if (/工作|返工|開會/i.test(pText)) pCat = '工作'; else if (/家庭|屋企/i.test(pText)) pCat = '家庭'; else if (/買|購物|超市/i.test(pText)) pCat = '購物';
-            if (/今日內|今日|今天/i.test(pText)) { pTimeTag = 'today'; pText = pText.replace(/(今日內|今日|今天)/ig, ''); } 
-            else if (/聽日|明天/i.test(pText)) { pTimeTag = 'custom'; now.setDate(now.getDate() + 1); pDate = formatDateToYYYYMMDD(now); pText = pText.replace(/(聽日|明天)/ig, ''); } 
+            let pText = transcript; let pPri = ''; let pCat = ''; let pTimeTag = ''; let pDate = ''; let pTime = ''; const now = getAppDate();
+            
+            // 💡 1. 提取緊急程度
+            if (/(緊急|好趕|好急|high|最急)/i.test(pText)) { pPri = 'High'; pText = pText.replace(/(緊急|好趕|好急|high|最急)/ig, ''); } 
+            else if (/(中等|普通|一般|mid)/i.test(pText)) { pPri = 'Middle'; pText = pText.replace(/(中等|普通|一般|mid)/ig, ''); } 
+            else if (/(不急|慢慢|low|得閒先)/i.test(pText)) { pPri = 'Low'; pText = pText.replace(/(不急|慢慢|low|得閒先)/ig, ''); }
+            
+            // 💡 2. 提取分類
+            if (/(旅行|機票|酒店|飛機)/i.test(pText)) { pCat = '旅行'; pText = pText.replace(/(旅行|機票|酒店|飛機)/ig, ''); } 
+            else if (/(工作|返工|開會)/i.test(pText)) { pCat = '工作'; pText = pText.replace(/(工作|返工|開會)/ig, ''); } 
+            else if (/(家庭|屋企)/i.test(pText)) { pCat = '家庭'; pText = pText.replace(/(家庭|屋企)/ig, ''); } 
+            else if (/(買|購物|超市)/i.test(pText)) { pCat = '購物'; pText = pText.replace(/(買|購物|超市)/ig, ''); }
+            
+            // 💡 3. 預先捕捉全句是否帶有 AM/PM 的暗示
+            let isPM = /(夜晚|晚上|晚|下晝|下午|今晚|明晚|聽晚|後晚|pm|p\.m\.)/i.test(pText);
+            let isAM = /(朝早|上午|早上|凌晨|今朝|今早|聽朝|明早|am|a\.m\.)/i.test(pText);
+
+            // 💡 4. 提取日期
+            if (/(今日內|今日|今天|今晚|今朝|今早)/i.test(pText)) { 
+                pTimeTag = 'today'; pDate = getTodayDateStr(); 
+                pText = pText.replace(/(今日內|今日|今天|今晚|今朝|今早)/ig, ''); 
+            } 
+            else if (/(聽日|明天|明晚|明早|聽朝|聽晚)/i.test(pText)) { 
+                pTimeTag = 'custom'; now.setDate(now.getDate() + 1); pDate = formatDateToYYYYMMDD(now); 
+                pText = pText.replace(/(聽日|明天|明晚|明早|聽朝|聽晚)/ig, ''); 
+            } 
+            else if (/(後日|後天|後晚)/i.test(pText)) { 
+                pTimeTag = 'custom'; now.setDate(now.getDate() + 2); pDate = formatDateToYYYYMMDD(now); 
+                pText = pText.replace(/(後日|後天|後晚)/ig, ''); 
+            }
             else {
                 const daysMap = { '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '日': 0, '天': 0 };
                 const match = pText.match(/下[星週個][期]*([一二三四五六日天])/);
                 if (match) {
                     pTimeTag = 'custom'; let targetDay = daysMap[match[1]];
                     let daysUntil = (targetDay + 7 - now.getDay()) % 7; if (daysUntil === 0) daysUntil = 7; 
-                    now.setDate(now.getDate() + daysUntil); pDate = formatDateToYYYYMMDD(now); pText = pText.replace(/下[星週個][期]*[一二三四五六日天]/ig, '');
+                    now.setDate(now.getDate() + daysUntil); pDate = formatDateToYYYYMMDD(now); 
+                    pText = pText.replace(/下[星週個][期]*[一二三四五六日天]/ig, '');
                 }
             }
-            pText = pText.replace(/幫我(加|記低|新增)?|加一個|記低/g, '').trim(); pText = pText.replace(/^[，。、！？,\.\s]+|[，。、！？,\.\s]+$/g, '');
+
+            // 💡 5. 提取時間
+            pText = pText.replace(/十一點/g, '11點').replace(/十二點/g, '12點').replace(/十點/g, '10點');
+            pText = pText.replace(/([一二兩三四五六七八九])\s*點/g, (match, p1) => {
+                const map = {'一':'1', '二':'2', '兩':'2', '三':'3', '四':'4', '五':'5', '六':'6', '七':'7', '八':'8', '九':'9'};
+                return map[p1] + '點';
+            });
             
-            tempVoiceData = { text: pText, pri: pPri, cat: pCat, timeTag: pTimeTag, date: pDate };
+            // 移除單純的 AM/PM 詞彙
+            pText = pText.replace(/(夜晚|晚上|晚|下晝|下午|朝早|上午|早上|凌晨)/ig, '');
+
+            const timeRegex = /([0-9]{1,2})\s*[點:：]\s*(半|[0-5][0-9])?(分)?/i;
+            const timeMatch = pText.match(timeRegex);
+            
+            if (timeMatch) {
+                let hour = parseInt(timeMatch[1], 10);
+                let minStr = timeMatch[2] || '';
+                
+                if (isPM && hour < 12) hour += 12;
+                if (isAM && hour === 12) hour = 0;
+                
+                // 💡 神級智能推算
+                if (!isPM && !isAM && hour < 12) {
+                    if (pTimeTag === 'today' || pTimeTag === '') {
+                        const currentHour = getAppDate().getHours();
+                        if (currentHour >= hour && currentHour < 24) {
+                            hour += 12; // 已過的時間自動推算為晚上
+                        }
+                    } else {
+                        // 未來日期，1點~6點預設為下午
+                        if (hour >= 1 && hour <= 6) hour += 12;
+                    }
+                }
+                
+                let min = 0;
+                if (minStr === '半') min = 30;
+                else if (minStr && !isNaN(parseInt(minStr, 10))) min = parseInt(minStr, 10);
+                
+                pTime = `${hour.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}`;
+                pText = pText.replace(timeMatch[0], '');
+                
+                if (pTimeTag === 'today' || pTimeTag === '') {
+                    pTimeTag = 'custom';
+                    pDate = pDate || getTodayDateStr(); 
+                }
+            }
+
+            // 清理多餘字詞
+            pText = pText.replace(/幫我(加|記低|新增)?|加一個|記低/g, '').trim(); 
+            pText = pText.replace(/^[，。、！？,\.\s]+|[，。、！？,\.\s]+$/g, '');
+            if (pText === '') pText = '未命名任務';
+            
+            tempVoiceData = { text: pText, pri: pPri, cat: pCat, timeTag: pTimeTag, date: pDate, time: pTime };
+            
             document.getElementById('voice-original-text').innerText = transcript;
+            document.getElementById('voice-parsed-text').innerText = pText;
+            
+            // 顯示提取出來的標籤
+            let tagsHtml = '';
+            if (pPri === 'High') tagsHtml += `<span class="bg-[#FF3366] text-white px-1.5 py-0.5 rounded text-[10px] font-cyber shadow-[0_0_5px_#FF3366]">HIGH</span>`;
+            if (pPri === 'Middle') tagsHtml += `<span class="bg-[#FF8C00] text-white px-1.5 py-0.5 rounded text-[10px] font-cyber shadow-[0_0_5px_#FF8C00]">MID</span>`;
+            if (pPri === 'Low') tagsHtml += `<span class="bg-[var(--neon-navy)] text-white px-1.5 py-0.5 rounded text-[10px] font-cyber shadow-[0_0_5px_var(--neon-navy)]">LOW</span>`;
+            if (pCat) tagsHtml += `<span class="bg-gray-200 text-gray-700 px-1.5 py-0.5 rounded text-[10px] font-kr shadow-sm">📌 ${pCat}</span>`;
+            
+            if (pTimeTag === 'custom') {
+                const displayDate = pDate === getTodayDateStr() ? 'TODAY' : pDate;
+                tagsHtml += `<span class="bg-[var(--neon-purple)] text-white px-1.5 py-0.5 rounded text-[10px] font-bold shadow-[0_0_5px_var(--neon-purple)]">📅 ${displayDate}</span>`;
+            } else if (pTimeTag === 'today') {
+                 tagsHtml += `<span class="bg-[var(--holo-blue)] text-black px-1.5 py-0.5 rounded text-[10px] font-pixel shadow-[0_0_3px_var(--holo-blue)]">TODAY</span>`;
+            }
+            if (pTime) {
+                tagsHtml += `<span class="bg-white text-[var(--neon-pink)] px-1.5 py-0.5 rounded border border-[var(--neon-pink)] text-[10px] font-bold shadow-[0_0_5px_var(--neon-pink)]">⏰ ${pTime}</span>`;
+            }
+
+            document.getElementById('voice-parsed-tags').innerHTML = tagsHtml;
             document.getElementById('voice-confirm-modal').classList.remove('hidden');
         }
 
         function applyVoiceCommand() {
+            // 清理舊狀態
+            currentPriority = ''; currentCategory = ''; currentTimeTag = ''; 
+            document.querySelectorAll('.control-pill').forEach(btn => btn.classList.remove('active'));
+            
             document.getElementById('new-task-input').value = tempVoiceData.text;
             if(tempVoiceData.pri) setPriority(tempVoiceData.pri); 
             if(tempVoiceData.cat) setCategory(tempVoiceData.cat);
             if(tempVoiceData.timeTag) { 
                 selectTimeTag(tempVoiceData.timeTag); 
-                if(tempVoiceData.timeTag === 'custom' && tempVoiceData.date) document.getElementById('custom-date-input').value = tempVoiceData.date; 
+                if(tempVoiceData.timeTag === 'custom') {
+                    if(tempVoiceData.date) document.getElementById('custom-date-input').value = tempVoiceData.date; 
+                    if(tempVoiceData.time) document.getElementById('custom-time-input').value = tempVoiceData.time; 
+                }
             }
-            if(!optionsExpanded) toggleOptions();
+            
+            if(optionsExpanded) toggleOptions();
             document.getElementById('voice-confirm-modal').classList.add('hidden');
+            
+            // 💡 一鍵自動加入！
+            addTask();
         }
 
         // ================= 時區 Modal =================
@@ -928,7 +1069,13 @@
             else if (currentTimeTag === 'custom') { targetDate = document.getElementById('custom-date-input').value; targetTime = document.getElementById('custom-time-input').value; }
 
             const newTask = { id: Date.now().toString(), text: text, completed: false, date: targetDate, time: targetTime, priority: currentPriority, category: currentCategory };
-            tasks.push(newTask); saveTasks(); renderTasks(); renderSchedule(); resetForm();
+            tasks.push(newTask); saveTasks(); renderTasks(); renderSchedule();
+            
+            document.getElementById('mic-btn').querySelector('i').className = 'ph-fill ph-microphone';
+            document.getElementById('mic-btn').classList.remove('text-[var(--neon-pink)]');
+            document.getElementById('mic-btn').classList.add('text-[var(--holo-blue)]');
+            
+            resetForm();
         }
 
         function resetForm() {
@@ -939,6 +1086,7 @@
         }
 
         function toggleTask(id) { const task = tasks.find(t => t.id === id); if (task) { task.completed = !task.completed; saveTasks(); renderTasks(); renderSchedule(); } }
+        function saveTasks() { localStorage.setItem('holo_pro_tasks', JSON.stringify(tasks)); }
 
         function renderTasks() {
             const todayList = document.getElementById('today-task-list'); const otherList = document.getElementById('other-task-list');
@@ -982,18 +1130,18 @@
                 if (task.date) {
                     if (task.date === todayStr) {
                         timeHtml = `
-                            <div class="flex items-center gap-1.5 text-[11px] bg-gray-50 border border-gray-200 px-2 py-1 rounded text-gray-700 font-bold shadow-sm">
+                            <div class="inline-flex items-center gap-1.5 bg-gray-50 border border-gray-200 px-2 py-1 rounded shadow-sm">
                                 <i class="ph-bold ph-alarm text-[16px] text-red-500"></i>
                                 <span class="bg-[var(--holo-blue)] text-black px-1.5 py-0.5 rounded-[4px] text-[10px] font-pixel leading-none shadow-[0_0_3px_var(--holo-blue)]">TODAY</span>
-                                ${task.time ? `<span class="text-black font-kr tracking-wide">${task.time}</span>` : ''}
+                                ${task.time ? `<span class="text-black font-kr text-[12px] ml-1 tracking-wide">${task.time}</span>` : ''}
                             </div>
                         `;
                     } else {
                         const d = new Date(task.date);
                         timeHtml = `
-                            <div class="flex items-center gap-1.5 text-[11px] bg-gray-50 border border-gray-200 px-2 py-1 rounded text-gray-700 font-bold shadow-sm">
-                                <i class="ph-bold ph-calendar-blank text-[14px]"></i>
-                                <span class="mt-[1px]">${formatDateToDDMMYY(d)} ${task.time || ''}</span>
+                            <div class="inline-flex items-center gap-1.5 bg-gray-50 border border-gray-200 px-2 py-1 rounded shadow-sm">
+                                <i class="ph-bold ph-calendar-blank text-[14px] text-gray-500"></i>
+                                <span class="text-gray-700 font-kr text-[11px] mt-[1px]">${formatDateToDDMMYY(d)} ${task.time || ''}</span>
                             </div>
                         `;
                     }
@@ -1001,12 +1149,12 @@
 
                 const emoji = catEmoji[task.category] || '📌';
                 let priLabel = '';
-                if(task.priority === 'High') priLabel = `<span class="flex items-center font-cyber text-[10px] border border-[var(--pri-high)] bg-[#94A3B8] px-1.5 py-1 rounded text-white shadow-[0_0_6px_var(--pri-high)]">HIGH</span>`;
-                if(task.priority === 'Middle') priLabel = `<span class="flex items-center font-cyber text-[10px] border border-[var(--pri-mid)] bg-[#94A3B8] px-1.5 py-1 rounded text-white shadow-[0_0_6px_var(--pri-mid)]">MID</span>`;
-                if(task.priority === 'Low') priLabel = `<span class="flex items-center font-cyber text-[10px] border border-[var(--pri-low)] bg-[#94A3B8] px-1.5 py-1 rounded text-white shadow-[0_0_6px_var(--pri-low)]">LOW</span>`;
+                if(task.priority === 'High') priLabel = `<span class="inline-flex items-center font-cyber text-[10px] border border-[var(--pri-high)] bg-[#94A3B8] px-1.5 py-1 rounded text-white shadow-[0_0_6px_var(--pri-high)]">HIGH</span>`;
+                if(task.priority === 'Middle') priLabel = `<span class="inline-flex items-center font-cyber text-[10px] border border-[var(--pri-mid)] bg-[#94A3B8] px-1.5 py-1 rounded text-white shadow-[0_0_6px_var(--pri-mid)]">MID</span>`;
+                if(task.priority === 'Low') priLabel = `<span class="inline-flex items-center font-cyber text-[10px] border border-[var(--pri-low)] bg-[#94A3B8] px-1.5 py-1 rounded text-white shadow-[0_0_6px_var(--pri-low)]">LOW</span>`;
 
                 let catLabel = ''; 
-                if(task.category) catLabel = `<span class="flex items-center gap-1 text-[10px] bg-gray-100 border border-gray-300 px-2 py-1 rounded text-gray-700 font-kr">${emoji} ${task.category}</span>`;
+                if(task.category) catLabel = `<span class="inline-flex items-center gap-1 text-[10px] bg-gray-100 border border-gray-300 px-2 py-1 rounded text-gray-700 font-kr">${emoji} ${task.category}</span>`;
 
                 const taskEl = document.createElement('div'); 
                 taskEl.className = 'task-card group'; 
@@ -1014,14 +1162,18 @@
                 
                 taskEl.innerHTML = `
                     <div class="flex items-start gap-3 w-full">
-                        <input type="checkbox" class="cyber-checkbox shrink-0 mt-0.5" ${task.completed ? 'checked' : ''} onchange="toggleTask('${task.id}')">
-                        <div class="flex-1 flex flex-col min-w-0 pt-0.5">
-                            <span class="text-[17px] font-bold leading-snug break-words ${task.completed ? 'task-completed' : 'text-black'}">${task.text}</span>
-                            <div class="flex items-center gap-1.5 mt-2 flex-wrap">
+                        <div class="mt-1 shrink-0">
+                            <input type="checkbox" class="cyber-checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTask('${task.id}')">
+                        </div>
+                        <div class="flex-1 min-w-0 flex flex-col gap-2">
+                            <div class="text-[17px] font-bold leading-tight break-words ${task.completed ? 'task-completed text-gray-400' : 'text-black'}">
+                                ${task.text}
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2">
                                 ${priLabel} ${catLabel} ${timeHtml}
                             </div>
                         </div>
-                        <button onclick="openDeleteModal('todo', '${task.id}')" class="p-2 text-xl text-gray-400 hover:text-red-500 shrink-0 transition-colors drop-shadow-sm"><i class="ph-bold ph-trash"></i></button>
+                        <button onclick="openDeleteModal('todo', '${task.id}')" class="shrink-0 p-2 text-xl text-gray-400 hover:text-red-500 transition-colors drop-shadow-sm"><i class="ph-bold ph-trash"></i></button>
                     </div>
                 `;
 
@@ -1033,6 +1185,7 @@
             if (otherCount === 0) otherList.innerHTML = '<div class="font-pixel text-[12px] text-gray-400 pl-2">> ARCHIVE_EMPTY_</div>';
         }
 
+        // ================= 時段 Folder 展開/縮小邏輯 =================
         function togglePeriod(pid) {
             if (expandedPeriods.has(pid)) expandedPeriods.delete(pid);
             else expandedPeriods.add(pid);
@@ -1099,13 +1252,13 @@
                     if(taskMap[h]) pCount += taskMap[h].length;
                     if(schedule[h] && schedule[h].trim() !== '') pCount += 1;
                 }
-                const badgeHtml = pCount > 0 ? `<span class="bg-black text-[var(--neon-green)] text-[10px] px-2 py-0.5 rounded font-pixel shadow-[2px_2px_0px_#000] ml-2 border border-[var(--neon-green)]">${pCount} 項</span>` : '';
+                const badgeHtml = pCount > 0 ? `<span class="bg-[#000] text-[var(--neon-green)] text-[10px] px-2 py-0.5 rounded font-pixel border border-[var(--neon-green)] shadow-[0_0_5px_var(--neon-green)] ml-2">${pCount} 項</span>` : '';
 
                 const headerEl = document.createElement('div');
                 headerEl.className = `period-header group ${isOpen ? 'open' : ''}`;
                 headerEl.innerHTML = `
                     <div class="flex items-center">
-                        <span class="text-[18px] drop-shadow-sm">${p.name}</span>
+                        <span class="text-[18px] drop-shadow-sm font-bold tracking-wide">${p.name}</span>
                         ${badgeHtml}
                     </div>
                     <i class="ph-bold ph-caret-${isOpen ? 'up' : 'down'} text-xl group-hover:scale-110 transition-transform"></i>
